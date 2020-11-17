@@ -1,0 +1,768 @@
+
+<body class="body">
+
+    <div class="container" id="f">
+		<h3>Datos del cliente</h3>
+    </div> 
+<div class="container ">
+		<label > Cedula/RIF </label>
+		<div class="row" >
+      		<div class="col-auto">
+      		<select class="form-control m-0"  id="tipo_ced" name="tipo_ced" style="width: 60px;">
+	          <option value="V">V</option>
+	          <option value="E">E</option>
+	          <option value="J">J</option>
+	          <option value="R">R</option>
+	        </select>
+      		</div>
+	       	<div class="col-7">
+	       		<input type="text" maxlength="" class="form-control" id="cedula" name="cedula"  placeholder="Ingrese cedula/RIF (*)" >
+	       	</div>
+	       	<div class="col-5 p-3">
+	       		<button type="button" id="buscarCed" class="btn btn-info">Verificar</button>
+	       	</div>
+           </div>
+           
+           <div class="form-goup">
+            <label> Nombre </label>
+            <input type="text" class="form-control" maxlength="40" id="nombre" name="nombre" placeholder="Nombre y Apellido (*)"  onKeyPress="return soloLetras(event)">
+        </div>
+         
+        <div class="form-goup">
+            <label> Empresa </label>
+            <input type="text" class="form-control" maxlength="30" id="empresa" name="empresa" placeholder="Nombre de la empresa (si pertenece a una)">
+        </div>
+    
+            
+        <div class="form-goup">
+            <!-- Telefono Principal -->
+            <label > Numeros telefonicos</label>
+            <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <select class="form-control"  id="tipo_tel1" name="tipo_tel1" style="width: 90px;">
+                      <option value="0416">0416</option>
+                      <option value="0426">0426</option>
+                      <option value="0414">0414</option>
+                      <option value="0424">0424</option>
+                      <option value="0412">0412</option>
+                      <option value="0276">0276</option>
+                      
+                    </select>
+                  </div>
+                 <input type="text" class="form-control" maxlength="7" id="numero1" name="numero1"  placeholder="Numero Telefonico (*)"  onKeyPress="return SoloNumeros(event)">
+            </div>
+            <!-- Telefono Secundario -->
+            <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <select class="form-control"  id="tipo_tel2" name="tipo_tel2" style="width: 90px;">
+                      <option value="0416">0416</option>
+                      <option value="0426">0426</option>
+                      <option value="0414">0414</option>
+                      <option value="0424">0424</option>
+                      <option value="0412">0412</option>
+                      <option value="0276">0276</option>
+                      
+                    </select>
+                  </div>
+                  <input type="text" class="form-control" maxlength="7" id="numero2" name="numero2"  placeholder="Numero Secundario" onKeyPress="return SoloNumeros(event)">
+            </div>
+        </div>
+</div>
+
+<!-- Para guardar el Correo -->
+
+<div class="form-group col-12">
+    <label >Correo electronico </label>
+    <input type="email" class="form-control" maxlength="30" id="email" name="email" placeholder="Correo Electronico (*)">
+</div>
+
+<!-- Para guardar la direccion -->
+
+<div class="form-group col-12">
+<label >Direccion </label>
+<textarea class="form-control" id="direccion" maxlength="100" name="direccion" rows="3" placeholder="Ingrese su direccion (*)"></textarea>
+</div>
+
+<hr>
+<!-- Select para traer los formularios -->
+<div class="form-goup  pb-5">
+    <div class="" id="f">
+		<h3>Tipo de Equipo</h3>
+    </div>
+ <select class="form-control btn-group"  id="menu" name="menu"  (change)="onChange($event.target.value)" >
+      <option value="" selected="true" disabled="disabled">Seleccionar</option>
+      <option value="cpu">CPU</option>
+      <option value="laptop">Laptop </option>
+      <option value="impresora">Impresora</option>
+      <option value="router">Router</option>
+      <option value="modem">Modem</option>
+      <option value="monitor">Monitor</option>
+      <option value="otros">Otros</option>
+    </select>
+</div>
+<!-- Formulario CPUs -->
+<div *ngIf="formulario==='cpu'" class="col-md-8">
+
+	<div class="form-group">
+		<br>
+		<h3>CPU</h3>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Marca</label>
+		  <input type='text' class='form-control' maxlength="15" id='cpu_marca' name='cpu_marca' placeholder='Marca'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Modelo</label>
+		  <input type='text' class='form-control' maxlength="15" id='cpu_modelo'name='cpu_modelo' placeholder='Modelo'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Serial</label>
+		  <input type='text' class='form-control' maxlength="30" id='cpu_serial'name='cpu_serial' placeholder='Serial(*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Cantidad de memorias Ram:</label>
+		  <select id='cantRam' class='form-control' name='cantRam'>
+			  <option value='1'>1</option>
+			  <option value='2'>2</option>
+			  <option value='3'>3</option>
+			  <option value='4'>4</option>
+			</select>
+	  </div>
+	  
+	  <div class="form-group" id="ram1">
+			<label>Ram 1: </label>
+			<div class="row">
+		 
+			  <div class="col-3">
+				<select class='form-control' id="cpu_ram1_ddr" name='cpu_ram1_ddr'>
+				  <option value="" selected="true" disabled="disabled">Tipo de DDR (*)</option>
+				  <option value='DDr1'>DDr1</option>
+				  <option value='DDr2'>DDr2</option>
+				  <option value='DDr3'>DDr3</option>
+				  <option value='DDr4'>DDr4</option>
+				</select>
+			  </div>
+			  <div class="col-3">
+				<select  class='form-control' id="cpu_ram1_capacidad" name='cpu_ram1_capacidad'>
+				  <option value="" selected="true" disabled="disabled">Capacidad (*)</option>
+				  <option value='224MB'>224MB</option>
+				  <option value='512MB'>512MB</option>
+				  <option value='1GB'>1GB</option>
+				  <option value='2GB'>2GB</option>
+				  <option value='4GB'>4GB</option>
+				  <option value='8GB'>8GB</option>
+				  <option value='16GB'>16GB</option>
+				</select>
+			  </div>
+			  
+			  <div class="col-6">
+				<input type="text" class="form-control" maxlength="30" id="cpu_ram1_serial" name="cpu_ram1_serial" placeholder="Serial (*)">
+			  </div>
+	  
+			</div>
+	  </div>
+	  
+	  <div class="form-group" id="ram2">
+			<label>Ram 2: </label>
+			<div class="row">
+		 
+			  <div class="col-3">
+				<select class='form-control' id="cpu_ram2_ddr" name='cpu_ram2_ddr'>
+				  <option value="" selected="true" disabled="disabled">Tipo de DDR (*)</option>
+				  <option value='DDr1'>DDr1</option>
+				  <option value='DDr2'>DDr2</option>
+				  <option value='DDr3'>DDr3</option>
+				  <option value='DDr4'>DDr4</option>
+				</select>
+			  </div>
+			  <div class="col-3">
+				<select  class='form-control' id="cpu_ram2_capacidad" name='cpu_ram2_capacidad'>
+				  <option value="" selected="true" disabled="disabled">Capacidad (*)</option>
+				  <option value='224MB'>224MB</option>
+				  <option value='512MB'>512MB</option>
+				  <option value='1GB'>1GB</option>
+				  <option value='2GB'>2GB</option>
+				  <option value='4GB'>4GB</option>
+				  <option value='8GB'>8GB</option>
+				  <option value='16GB'>16GB</option>
+				</select>
+			  </div>
+			  
+			  <div class="col-6">
+				<input type="text" class="form-control" maxlength="30" id="cpu_ram2_serial" name="cpu_ram2_serial" placeholder="Serial (*)">
+			  </div>
+	  
+			</div>
+	  </div>
+	  
+	  <div class="form-group" id="ram3">
+			<label>Ram 3: </label>
+			<div class="row">
+		 
+			  <div class="col-3">
+				<select class='form-control' id="cpu_ram3_ddr" name='cpu_ram3_ddr'>
+				  <option value="" selected="true" disabled="disabled">Tipo de DDR (*)</option>
+				  <option value='DDr1'>DDr1</option>
+				  <option value='DDr2'>DDr2</option>
+				  <option value='DDr3'>DDr3</option>
+				  <option value='DDr4'>DDr4</option>
+				</select>
+			  </div>
+			  <div class="col-3">
+				<select  class='form-control' id="cpu_ram3_capacidad" name='cpu_ram3_capacidad'>
+				  <option value="" selected="true" disabled="disabled">Capacidad (*)</option>
+				  <option value='224MB'>224MB</option>
+				  <option value='512MB'>512MB</option>
+				  <option value='1GB'>1GB</option>
+				  <option value='2GB'>2GB</option>
+				  <option value='4GB'>4GB</option>
+				  <option value='8GB'>8GB</option>
+				  <option value='16GB'>16GB</option>
+				</select>
+			  </div>
+			  
+			  <div class="col-6">
+				<input type="text" class="form-control" id="cpu_ram3_serial" maxlength="30" name="cpu_ram3_serial" placeholder="Serial (*)">
+			  </div>
+	  
+			</div>
+	  </div>
+	  
+	  <div class="form-group" id="ram4">
+			<label>Ram 4: </label>
+			<div class="row">
+		 
+			  <div class="col-3">
+				<select class='form-control' id="cpu_ram4_ddr" name='cpu_ram4_ddr'>
+				  <option value="" selected="true" disabled="disabled">Tipo de DDR (*)</option>
+				  <option value='ddr1'>DDr1</option>
+				  <option value='ddr2'>DDr2</option>
+				  <option value='ddr3'>DDr3</option>
+				  <option value='ddr4'>DDr4</option>
+				</select>
+			  </div>
+			  <div class="col-3">
+				<select  class='form-control' id="cpu_ram4_capacidad" name='cpu_ram4_capacidad'>
+				  <option value="" selected="true" disabled="disabled">Capacidad (*)</option>
+				  <option value='224mb'>224MB</option>
+				  <option value='512mb'>512MB</option>
+				  <option value='1gb'>1GB</option>
+				  <option value='2gb'>2GB</option>
+				  <option value='4gb'>4GB</option>
+				  <option value='8gb'>8GB</option>
+				  <option value='16gb'>16GB</option>
+				</select>
+			  </div>
+			  
+			  <div class="col-6">
+				<input type="text" class="form-control" id="cpu_ram4_serial" maxlength="30" name="cpu_ram4_serial" placeholder="Serial (*)">
+			  </div>
+	  
+			</div>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Disco Duro:</label>
+		  <div class="row">
+			<div class="col-3">
+				<select class='form-control' id="cpu_modelo_disco" name='cpu_modelo_disco'>
+				  <option value="" selected="true" disabled="disabled">Modelo (*)</option>
+				  <option value='sata'>Sata</option>
+				  <option value='ide'>IDE</option>
+				</select>
+			</div>
+			<div class="col-6">
+			  <input type='text' class='form-control' id='cpu_serial_disco' maxlength="30" name='cpu_serial_disco' placeholder='Serial (*)'>
+			</div>
+			<div class="col-3">
+			  <input type='text' class='form-control' id='cpu_capacidad_disco' maxlength="30" name='cpu_capacidad_disco' placeholder='Capacidad (*)'>
+			</div>
+		  </div>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Procesador:</label>
+		  <div class="row">
+			<div class="col-4">
+			  <input type='text' class='form-control' id='cpu_modelo_procesador' maxlength="30" name='cpu_modelo_procesador' placeholder='Modelo (*)'>
+			</div>
+			<div class="col-5">
+			  <input type='text' class='form-control' id='cpu_serial_procesador' maxlength="30" name='cpu_serial_procesador' placeholder='Serial (*)'>
+			</div>
+			<div class="col">
+			  <input type='text' class='form-control' id='cpu_capacidad_procesador' maxlength="30" name='cpu_capacidad_procesador' placeholder='Capacidad (*)'>
+			</div>
+		  </div>
+	  </div>
+	  
+	  <div class='form-group'>
+		  <label for='cpu_observacion'>Observaciones</label>
+		  <textarea class='form-control' rows='3' id="cpu_observacion" name='cpu_observacion' maxlength="100" placeholder="Observaciones realizadas"></textarea>
+	  </div>
+	  
+
+
+</div>
+<!-- Formulario Laptop -->
+<div *ngIf="formulario==='laptop'" class="col-md-8" >
+	<div class="form-group">
+		<br>
+		<h3>LAPTOP</h3>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Marca</label>
+		  <input type='text' class='form-control' id='lap_marca' maxlength="30" name='lap_marca' placeholder='Marca (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Modelo</label>
+		  <input type='text' class='form-control' id='lap_modelo' maxlength="30" name='lap_modelo' placeholder='Modelo (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Serial</label>
+		  <input type='text' class='form-control' id='lap_serial' maxlength="30" name='lap_serial' placeholder='Serial(*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Cantidad de memorias Ram:</label>
+		  <select id='cantRam' class='form-control' name='cantRam'>
+			  <option value='1'>1</option>
+			  <option value='2'>2</option>
+			</select>
+	  </div>
+	  
+	  <div class="form-group" id="ram1">
+			<label>Ram 1: </label>
+			<div class="row">
+		 
+			  <div class="col-3">
+				<select class='form-control' id="lap_ram1_ddr" name='lap_ram1_ddr'>
+				  <option value="" selected="true" disabled="disabled">DDR(*)</option>
+				  <option value='DDr1'>DDr1</option>
+				  <option value='DDr2'>DDr2</option>
+				  <option value='DDr3'>DDr3</option>
+				  <option value='DDr4'>DDr4</option>
+				</select>
+			  </div>
+			  <div class="col-3">
+				<select  class='form-control' id="lap_ram1_capacidad" name='lap_ram1_capacidad'>
+				  <option value="" selected="true" disabled="disabled">Capacidad(*)</option>
+				  <option value='224MB'>224MB</option>
+				  <option value='512MB'>512MB</option>
+				  <option value='1GB'>1GB</option>
+				  <option value='2GB'>2GB</option>
+				  <option value='4GB'>4GB</option>
+				  <option value='8GB'>8GB</option>
+				  <option value='16GB'>16GB</option>
+				</select>
+			  </div>
+			  
+			  <div class="col-6">
+				<input type="text" class="form-control" id="lap_ram1_serial" maxlength="30" name="lap_ram1_serial" placeholder="Serial (*)">
+			  </div>
+	  
+			</div>
+	  </div>
+	  
+	  <div class="form-group" id="ram2">
+			<label>Ram 2: </label>
+			<div class="row">
+		 
+			  <div class="col-3">
+				<select class='form-control' id="lap_ram2_ddr" name='lap_ram2_ddr'>
+				  <option value="" selected="true" disabled="disabled">DDR(*)</option>
+				  <option value='DDr1'>DDr1</option>
+				  <option value='DDr2'>DDr2</option>
+				  <option value='DDr3'>DDr3</option>
+				  <option value='DDr4'>DDr4</option>
+				</select>
+			  </div>
+			  <div class="col-3">
+				<select  class='form-control' id="lap_ram2_capacidad" name='lap_ram2_capacidad'>
+				  <option value="" selected="true" disabled="disabled">Capacidad(*)</option>
+				  <option value='224MB'>224MB</option>
+				  <option value='512MB'>512MB</option>
+				  <option value='1GB'>1GB</option>
+				  <option value='2GB'>2GB</option>
+				  <option value='4GB'>4GB</option>
+				  <option value='8GB'>8GB</option>
+				  <option value='16GB'>16GB</option>
+				</select>
+			  </div>
+			  
+			  <div class="col-6">
+				<input type="text" class="form-control" id="lap_ram2_serial" maxlength="30" name="lap_ram2_serial" placeholder="Serial (*)">
+			  </div>
+	  
+			</div>
+	  </div>
+	  
+	  
+	  <div class="form-group">
+		  <label>Disco Duro:</label>
+		  <div class="row">
+			<div class="col-3">
+				<select class='form-control' id="lap_modelo_disco" name='lap_modelo_disco'>
+				  <option value="" selected="true" disabled="disabled">Modelo(*)</option>
+				  <option value='sata'>Sata</option>
+				  <option value='ide'>IDE</option>
+				</select>
+			</div>
+			<div class="col-3">
+			  <input type='text' class='form-control' id='lap_capacidad_disco' maxlength="30" name='lap_capacidad_disco' placeholder='Capacidad (*)'>
+			</div>
+			<div class="col-6">
+			  <input type='text' class='form-control' id='lap_serial_disco' maxlength="30" name='lap_serial_disco' placeholder='Serial (*)'>
+			</div>
+			
+		  </div>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Procesador:</label>
+		  <div class="row">
+			<div class="col-4">
+			  <input type='text' class='form-control' id='lap_modelo_procesador' maxlength="30" name='lap_modelo_procesador' placeholder='Modelo (*)'>
+			</div>
+			<div class="col-5">
+			  <input type='text' class='form-control' id='lap_serial_procesador' maxlength="30" name='lap_serial_procesador' placeholder='Serial (*)'>
+			</div>
+			<div class="col">
+			  <input type='text' class='form-control' id='lap_capacidad_procesador' maxlength="30" name='lap_capacidad_procesador' placeholder='Capacidad (*)'>
+			</div>
+		  </div>
+	  </div>
+	  
+	  <div class='custom-control custom-switch'>
+		<input type='checkbox' class='custom-control-input off' id='check_cargador' name='check_cargador'>
+		<input type="hidden" id="laptop_cargador" name="" value="no">
+		<label class='custom-control-label' for="check_cargador" >Cargador</label>
+	  </div>
+	  
+	  <div class="form-group" id="cargadorForm">
+		  <div class="row">
+			<div class="col-5">
+			  <input type='text' class='form-control' id='lap_modelo_cargador' maxlength="30" name='lap_modelo_cargador' placeholder='Modelo (*)'>
+			</div>
+			<div class="col-7">
+			  <input type='text' class='form-control' id='lap_serial_cargador' maxlength="30" name='lap_serial_cargador' placeholder='Serial (*)'>
+			</div>
+		  </div>
+	  </div>
+	  
+	  <div class='custom-control custom-switch'>
+		<input type='checkbox' class='custom-control-input' id='check_bateria'name='check_bateria'>
+		<input type="hidden" id="laptop_bateria" name="" value="no">
+		<label class='custom-control-label' for="check_bateria">Bateria</label>
+	  </div>
+	  
+	  <div class="form-group" id="bateriaForm">
+		  <div class="row">
+			<div class="col-5">
+			  <input type='text' class='form-control' id='lap_modelo_bateria' maxlength="30" name='lap_modelo_bateria' placeholder='Modelo (*)'>
+			</div>
+			<div class="col-7">
+			  <input type='text' class='form-control' id='lap_serial_bateria' maxlength="30" name='lap_serial_bateria' placeholder='Serial (*)'>
+			</div>
+		  </div>
+	  </div>
+	  
+	  
+	  <div class='form-group'>
+		  <label for='lap_observacion'>Descripcion</label>
+		  <textarea class='form-control' rows='3' id="lap_observacion" name='lap_observacion' maxlength="100" placeholder="Observaciones realizadas"></textarea>
+	  </div>
+
+	<hr>  
+</div>
+<!-- Formulario Impresora -->
+<div *ngIf="formulario==='impresora'" class="col-md-8">
+	<div class="form-group">
+  <br>
+  <h3>IMPRESORA</h3>
+
+
+<div class="form-group">
+    <label>Marca</label>
+    <input type='text' class='form-control' maxlength="30" id='imp_marca' placeholder='Marca (*)' name='imp_marca'>
+</div>
+
+<div class="form-group">
+    <label>Modelo</label>
+    <input type='text' class='form-control' maxlength="30" id='imp_modelo' placeholder='Modelo (*)' name='imp_modelo'>
+</div>  
+
+<div class="form-group">
+    <label>Serial</label>
+    <input type='text' class='form-control' maxlength="30" id='imp_serial' placeholder='Serial (*)' name='imp_serial'>
+</div> 
+
+<div class="form-group">
+    <label>Cabezal:</label>
+    <div class="row">
+      <div class="col-4">
+          <select class='form-control' id="imp_cabezal_tipo" name='imp_cabezal_tipo'>
+            <option value='termico'>Termico</option>
+            <option value='piezoelectrico'>Piezoelectrico</option>
+          </select>
+      </div>
+      <div class="col-8">
+        <input type='text' class='form-control' id='imp_cabezal_serial' maxlength="30" name='imp_cabezal_serial' placeholder='Serial (*)'>
+      </div>
+    </div>
+</div>
+
+
+<div class='form-group'>
+    <div class="row">
+      <div class="col">
+        <label for='imp_tinta_negra'>Color Negro :</label>
+      </div>   
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type='range' class='custom-range' min='1' max='3' step='2' id='imp_tinta_negro'name='imp_tinta_negro'>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-secondary">Bajo</p>
+      </div>
+      <div class="col" style="text-align: center;">
+        <p class="text-secondary">Medio</p>
+      </div>
+      <div class="col" style="text-align: right;">
+        <p class="text-secondary">Alto</p>
+      </div>
+    </div>    
+</div>
+
+<div class='form-group'>
+    <div class="row">
+      <div class="col">
+        <label for='imp_tinta_negra'>Color Azul :</label>
+      </div>   
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type='range' class='custom-range' min='1' max='3' step='2' id='imp_tinta_azul'name='imp_tinta_azul'>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-secondary">Bajo</p>
+      </div>
+      <div class="col" style="text-align: center;">
+        <p class="text-secondary">Medio</p>
+      </div>
+      <div class="col" style="text-align: right;">
+        <p class="text-secondary">Alto</p>
+      </div>
+    </div>    
+</div>
+
+<div class='form-group'>
+    <div class="row">
+      <div class="col">
+        <label for='imp_tinta_negra'>Color Amarillo :</label>
+      </div>   
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type='range' class='custom-range' min='1' max='3' step='2' id='imp_tinta_amarillo'name='imp_tinta_amarillo'>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-secondary">Bajo</p>
+      </div>
+      <div class="col" style="text-align: center;">
+        <p class="text-secondary">Medio</p>
+      </div>
+      <div class="col" style="text-align: right;">
+        <p class="text-secondary">Alto</p>
+      </div>
+    </div>    
+</div>
+
+<div class='form-group'>
+    <div class="row">
+      <div class="col">
+        <label for='imp_tinta_negra'>Color Rojo :</label>
+      </div>   
+    </div>
+    <div class="row">
+    <div class="col">
+        <input type='range' class='custom-range' min='1' max='3' step='2' id='imp_tinta_rojo'name='imp_tinta_rojo'>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-secondary">Bajo</p>
+      </div>
+      <div class="col" style="text-align: center;">
+        <p class="text-secondary">Medio</p>
+      </div>
+      <div class="col" style="text-align: right;">
+        <p class="text-secondary">Alto</p>
+      </div>
+    </div>    
+</div>
+
+
+<div class='form-group'>
+    <label>Observacion:</label>
+    <textarea class='form-control' id='imp_observacion' maxlength="100" rows='3'name='imp_observacion' placeholder="Observaciones realizadas"></textarea>
+</div>
+</div>
+</div>
+<!-- Formulario Router -->
+<div *ngIf="formulario==='router'" class="col-md-8">
+	<div class="form-group">
+		<br>
+		<h3>ROUTER</h3>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Marca</label>
+		  <input type='text' class='form-control' id='rou_marca' maxlength="30" name='rou_marca' placeholder='Marca (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Modelo</label>
+		  <input type='text' class='form-control' id='rou_modelo' maxlength="30" name='rou_modelo' placeholder='Modelo (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Serial</label>
+		  <input type='text' class='form-control' id='rou_serial' maxlength="30" name='rou_serial' placeholder='Serial(*)'>
+	  </div>
+	  
+	  
+	  <div class='custom-control custom-switch'>
+		<input type='checkbox' class='custom-control-input off' id='check_cargador' name='check_cargador'>
+		<input type="hidden" id="router_cargador" name="" value="no">
+		<label class='custom-control-label' for="check_cargador" >Cargador</label>
+	  </div>
+	  
+	  <div class="form-group" id="cargadorForm">
+		  <div class="row">
+			<div class="col-5">
+			  <input type='text' class='form-control' id='rou_modelo_cargador' maxlength="30" name='rou_modelo_cargador' placeholder='Modelo (*)'>
+			</div>
+			<div class="col-7">
+			  <input type='text' class='form-control' id='rou_serial_cargador' maxlength="30" name='rou_serial_cargador' placeholder='Serial (*)'>
+			</div>
+		  </div>
+	  </div>
+	  
+	  
+	  <div class='form-group'>
+		  <label for='rou_observacion'>Observaciones</label>
+		  <textarea class='form-control' rows='3' id="rou_observacion" maxlength="100" name='rou_observacion' placeholder="Observaciones realizadas"></textarea>
+	  </div>
+</div>
+<!-- Formulario Monitor -->
+<div *ngIf="formulario==='monitor'" class="col-md-8">
+	<div class="form-group">
+		<br>
+		<h3>MONITOR</h3>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Marca</label>
+		  <input type='text' class='form-control' id='mon_marca' maxlength="30" name='mon_marca' placeholder='Marca (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Modelo</label>
+		  <input type='text' class='form-control' id='mon_modelo' maxlength="30" name='mon_modelo' placeholder='Modelo (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Serial</label>
+		  <input type='text' class='form-control' id='mon_serial' maxlength="30" name='mon_serial' placeholder='Serial(*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Pulgadas</label>
+		  <input type='text' class='form-control' id='mon_pulgadas' maxlength="30" name='mon_pulgadas' placeholder='Pulgadas(*)'>
+	  </div>
+	  
+	  <div class='form-group'>
+		  <label for='mon_observacion'>Observaciones</label>
+		  <textarea class='form-control' rows='3' id="mon_observacion" name='mon_observacion' maxlength="100" placeholder="Observaciones realizadas"></textarea>
+	  </div>
+</div>
+<!-- Formulario Otros -->
+<div *ngIf="formulario==='otros'" class="col-md-8">
+	<div class="form-group">
+		<br>
+		<h3>OTROS</h3>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Nombre Equipo</label>
+		  <input type='text' class='form-control' id='otro_nombre' maxlength="30" name='otro_nombre' placeholder='Que equipo sera registrado(*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Marca</label>
+		  <input type='text' class='form-control' id='otro_marca' maxlength="30" name='otro_marca' placeholder='Marca (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Modelo</label>
+		  <input type='text' class='form-control' id='otro_modelo' maxlength="30" name='otro_modelo' placeholder='Modelo (*)'>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label>Serial</label>
+		  <input type='text' class='form-control' id='otro_serial' maxlength="30" name='otro_serial' placeholder='Serial(*)'>
+	  </div>
+	  
+	  
+	  
+	  <div class='form-group'>
+		  <label for='otro_observacion'>Observaciones</label>
+		  <textarea class='form-control' rows='3' id="otro_observacion" name='otro_observacion' maxlength="100" placeholder="Observaciones realizadas"></textarea>
+	  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- div donde se mostraran los distintos formularios -->
+<div id="equipo">
+
+</div>
+
+<br>
+
+<div class="form-goup pb-5" style="text-align: right;">
+<button type="button" class="btn btn-dark " data-toggle="modal" data-target="#verifGuardar">
+  Guardar
+</button>
+
+
+</div>
+
+<br>
+
+
+</body>
+<app-navbar></app-navbar>

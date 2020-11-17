@@ -1,0 +1,44 @@
+<body class="container" style="background-color: rgb(245, 245, 245); height: 100vh;">
+    <br>
+    <h3 style="text-align: center;">Lista de Ordenes</h3>
+    <hr>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
+      </div>
+      <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+    </div>
+  <br>
+
+  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" (click)="openModal(data)">
+    <div class="row">
+      <div class="col-8">
+        <p class="mb-0" > <i class="fas text-muted fa-hashtag"></i> &nbsp; {{data?.ID}}  &nbsp; | &nbsp; 
+          <i *ngIf="data?.type==='laptop'" class="fas text-muted fa-laptop"></i>
+          <i *ngIf="data?.type==='impresora'" class="fas text-muted fa-print"></i>
+          <i *ngIf="data?.type==='CPU'" class="fas text-muted fa-mobile"></i>
+          <i *ngIf="data?.type==='CPU'" class="fas text-muted fa-tv"></i>
+          <i *ngIf="data?.type==='monitor'" class="fas text-muted fa-tv"></i>
+          <i *ngIf="data?.type==='router'" class="fas text-muted fa-hdd"></i>
+          <i *ngIf="data?.type==='router'" class="fas text-muted fa-wifi"></i>
+          <i *ngIf="data?.type==='modem'" class="fas text-muted fa-hdd"></i>
+        </p>
+        <p class="mb-0 mt-1 truncate text-1">
+        <i class="fas text-muted fa-user"></i> &nbsp; {{data?.name}} </p>
+      </div>
+      <div class="col-4 text-right">
+        <div [ngClass]="{
+          'process': (data?.status==='process'), 
+          'wait': (data?.status==='wait'),
+          'deliver': (data?.status==='deliver'),
+          'finalize': (data?.status==='finalize')
+        }" >
+        </div>
+        <span class="text-muted text-date">{{data?.date | date:'mediumDate'}}</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</body>
+<app-navbar></app-navbar>

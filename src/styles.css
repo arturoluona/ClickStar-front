@@ -1,0 +1,19 @@
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block !important;
+    text-overflow: ellipsis;
+}
+
+.text-date{
+    font-size: 0.7em;
+}
+.text-1{
+    font-size: 0.9em;
+}
+.swal2-content{
+    padding: 0 !important ; 
+}
+.text-dat{
+    font-size: 0.8em;
+}

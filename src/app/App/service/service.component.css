@@ -1,0 +1,11 @@
+.barras-laterales{
+    border-left: solid 1px;
+    border-right: solid 1px;
+    border-color: rgba(174, 172, 172, 0.755);
+}
+.btn-1{
+    position: fixed;
+    right: 10px;
+    bottom: 90px;
+    border-radius: 50%;
+}
