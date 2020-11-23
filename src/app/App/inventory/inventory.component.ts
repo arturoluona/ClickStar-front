@@ -14,7 +14,7 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ 
   openModal(data = <any>{}) {
     this.inventory.openOrder(data)
   }
