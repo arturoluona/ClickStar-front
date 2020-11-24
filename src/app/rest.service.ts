@@ -58,6 +58,7 @@ export class RestService {
             e => {
               if (redirect) {
                 this.router.navigate(['login']);
+                this.clearSession()
               }
               reject(false);
             });

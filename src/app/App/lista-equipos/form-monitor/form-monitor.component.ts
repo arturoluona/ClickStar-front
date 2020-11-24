@@ -8,8 +8,9 @@ import { FormMonitorService } from './form-monitor.service';
 })
 export class FormMonitorComponent implements OnInit {
 
+
   constructor(
-    public formMonitor: FormMonitorService
+    public formMonitor: FormMonitorService,
   ) { }
 
   ngOnInit(): void {

@@ -42,15 +42,15 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.form.enable();
       })).subscribe((b) => {
-        this.redirect(b);
-      }, e => {
-        Swal.fire(
-          'Error',
-          'Usuario o contraseña inválido',
-          'error'
-        );
-      }
-    );
+          this.redirect(b);
+        }, e => {
+          Swal.fire(
+            'Error',
+            'Usuario o contraseña inválido',
+            'error'
+          );
+        }
+      );
   }
 
   redirect = (a) => {

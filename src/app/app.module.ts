@@ -33,8 +33,6 @@ import { FormOthersComponent } from './App/lista-equipos/form-others/form-others
 import { InventoryComponent } from './App/inventory/inventory.component';
 
 
-
-
 const rutas: Routes = [
   {
     path:'',
