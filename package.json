@@ -26,6 +26,8 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "ng2-charts": "^2.4.2",
+    "ngx-bootstrap": "^6.2.0",
+    "ngx-cookie-service": "^10.1.1",
     "read-more-directive-angular2": "0.0.5",
     "rxjs": "~6.6.0",
     "sweetalert2": "^10.9.0",

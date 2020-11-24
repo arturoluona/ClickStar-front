@@ -1,7 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './App/app.component';
 import { RouterModule, Routes } from '@angular/router';
+import {LoadingBtnDirective} from "./loading-btn.directive";
+import {RestService} from './rest.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {AuthGuard} from './auth.guard';
+
 import { HomeComponent } from './App/home/home.component'
 import { LoginComponent } from './App/login/login.component';
 import { NavbarComponent } from './App/navbar/navbar.component';
@@ -13,7 +22,6 @@ import { ModificarUsuarioComponent } from './App/modificar-usuario/modificar-usu
 import { ServiceComponent } from './App/service/service.component';
 import { ListaClientesComponent } from './App/lista-clientes/lista-clientes.component';
 import { PieComponent } from './App/graficos/pie/pie.component';
-import { ChartsModule } from 'ng2-charts';
 import { BarrasComponent } from './App/graficos/barras/barras.component';
 import { ListaEquiposComponent } from './App/lista-equipos/lista-equipos.component';
 import { FormLaptopComponent } from './App/lista-equipos/form-laptop/form-laptop.component';
@@ -46,6 +54,7 @@ const rutas: Routes = [
   {
     path:'perfil',
     component: PerfilComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'inventario',
@@ -54,33 +63,34 @@ const rutas: Routes = [
   {
     path:'registro-o',
     component: RegistroOrdenComponent,
-  }, 
-  {
-    path:'registrar-u',
-    component: RegistrarUsuarioComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'modificar-u',
     component: ModificarUsuarioComponent,
+    canActivate: [AuthGuard]
   },
  
   {
     path:'lista-o',
     component: ListaOrdenComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'lista-c',
     component: ListaClientesComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'lista-e',
-    component: ListaEquiposComponent,
+    path:'registrar-u',
+    component: RegistrarUsuarioComponent,
+    canActivate: [AuthGuard]
   },
   
   {
     path:'service',
     component: ServiceComponent,
-
+    canActivate: [AuthGuard]
   },
   {
     path:'form-laptop',
@@ -132,13 +142,17 @@ const rutas: Routes = [
     FormRouterComponent,
     FormOthersComponent,
     InventoryComponent,
-    
+    LoadingBtnDirective,
   ],
   imports: [
     BrowserModule,ChartsModule,
-    RouterModule.forRoot(rutas)
+    RouterModule.forRoot(rutas),    
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ModalModule.forRoot()
   ],
-  providers: [],
+  providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

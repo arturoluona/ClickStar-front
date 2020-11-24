@@ -2,34 +2,31 @@
 	<div id="f">
     <h3 class="m-2 p-2">Datos personales</h3>
     </div>
-
+<div class="container">
 <div class="col-md-8" >
 	<p class="text-danger">Los campos marcados con (*) son obligatorios</p>
 		<label > Cedula/RIF </label>
 
       	<div class="row" >
-      		<div class="col-md-auto">
+      		<div class="col-4">
       		<select class="form-control"  id="tipo_ced" name="tipo_ced" style="width: 90px;">
 	          <option value="V">V</option>
 	          <option value="E">E</option>
 	          <option value="J">J</option>
 	          <option value="R">R</option>
 	        </select>
-      		</div>
-	       	<div class="col">
+      		
+</div>
+			<div class="col-8">
 	       		<input type="text" class="form-control" id="cedula" name="cedula"  placeholder="Ingrese cedula/RIF (*)" >
-	       	</div>
+</div>
 	     	 
    		</div>
 
 		<label > Nombre y Apellido </label>
 		 <div class="row">
-		    <div class="col">
 		      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre (*)" onKeyPress="return soloLetras(event)">
-		    </div>
-		    <div class="col">
-		      <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido (*)" onKeyPress="return soloLetras(event)">
-		    </div>
+
 		 </div>
 
 		 <br>
@@ -68,7 +65,7 @@
 	    <label >Direccion </label>
 	    <textarea class="form-control" id="direccion" name="direccion" rows="3" placeholder="Ingrese su direccion (*)"></textarea>
 	</div>
-
+</div>
 	<hr>  
 </div>
 <div id="f">
