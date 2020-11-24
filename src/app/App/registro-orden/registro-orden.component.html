@@ -4,7 +4,7 @@
 	<form [formGroup]="formOrden">
 		<label>Cliente</label>	  
 		<ng-select #selectProductRef [items]="results$ | async"
-					formControlName="user"
+					formControlName="customer"
 					bindLabel="name"
 					(close)="selectProductRef.blur(); selectProductRef.focus()"
 					[addTag]="true"
@@ -28,12 +28,21 @@
 			</ng-template>
 		</ng-select>
 
-            <!-- <label>{{ "ORDERS.CUSTOMER" | translate }}</label>
-            <input type="text" disabled formControlName="customer" class="form-control" aria-describedby="emailHelp"
-              placeholder="" /> -->
+		<label>Técnico</label>
+		<ng-select  [items]="tecnicos$ | async"
+					bindLabel="name"
+					autofocus
+                   placeholder="Selecciona un técnico"
+				   formControlName="tecnico">
+		</ng-select>
 
-
-
+		<label>Estatus</label>
+		<ng-select [items]="status"
+				   bindLabel="name"
+				   bindValue="value"
+                   placeholder="Selecciona un estatus"
+				   formControlName="status">
+		</ng-select>
 
 		<!-- Select para traer los formularios -->
 		<label>Equipos</label>

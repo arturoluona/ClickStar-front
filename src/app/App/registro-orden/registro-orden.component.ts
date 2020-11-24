@@ -22,9 +22,19 @@ export class RegistroOrdenComponent implements OnInit {
     { id: 'deviceOthers', name: 'Otros'}
   ]
   
+  public status = [
+    {value: 'wait', name: 'Espera'},
+    {value: 'process', name: 'Proceso'},
+    {value: 'completed', name: 'Completado'},
+    {value: 'delivered', name: 'Entregado'},
+    {value: 'cancelado', name: 'Cancelado'}
+  ]
+
   bsModalRef: BsModalRef;
 
   public formOrden: FormGroup;
+
+  public tecnicos$: Observable<any[]>;
   // USER
   results$: Observable<any>;  
   @ViewChild('selectUserInput') selectUserInput;
@@ -46,14 +56,17 @@ export class RegistroOrdenComponent implements OnInit {
 
   ngOnInit(): void {
     this.formOrden = this.builder.group({
-      user: ['', Validators.required],
+      customer: ['', Validators.required],
+      tecnico: ['', Validators.required],
       device: ['', Validators.required],
-      description: ['', Validators.required],
+      description: ['', Validators.required],      
+      status: ['', Validators.required],
     });
 
     
     this.loadUsers()
     this.loadDevices()
+    this.loadTecnico()
     // this.formRouter();
   }
 
@@ -91,7 +104,7 @@ export class RegistroOrdenComponent implements OnInit {
           ClienteComponent
         );
       } else {
-        this.formOrden.patchValue({user: e})
+        this.formOrden.patchValue({customer: e})
       }
     }
   }
@@ -148,14 +161,25 @@ export class RegistroOrdenComponent implements OnInit {
       }
     }
   }
-
   // FIN DEVICES
+
+  
+  loadTecnico() {
+    const q = [
+      `users?`,
+      `filter=tecnico`,
+      `&fields=role`,
+      `&page=1&limit=100`,
+      `&sort=name&order=-1`,
+    ];
+    this.tecnicos$ = this.rest.get(q.join('')).pipe(
+      map((a) => a.docs)
+    )
+  }
 
   
 
   submit() {
-    const data = {
-
-    }
+    console.log(this.formOrden.value)
   }
 }
