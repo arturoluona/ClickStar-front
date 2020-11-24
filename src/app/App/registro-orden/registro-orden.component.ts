@@ -3,6 +3,9 @@ import {RestService} from '../../rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {concat, Observable, of, Subject} from "rxjs";
 import {catchError, distinctUntilChanged, finalize, map, switchMap, tap} from "rxjs/operators";
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import {ClienteComponent} from './modals/cliente/cliente.component';
+import {PcComponent} from './modals/pc/pc.component';
 
 @Component({
   selector: 'app-registro-orden',
@@ -11,28 +14,35 @@ import {catchError, distinctUntilChanged, finalize, map, switchMap, tap} from "r
 })
 export class RegistroOrdenComponent implements OnInit {
 
+  public typeDevices = [
+    { id: 'devicePc', name: 'PC'},
+    { id: 'devicePrinter', name: 'Impresora'},
+    { id: 'deviceRouter', name: 'Router/Modem'},
+    { id: 'deviceMonitor', name: 'Monitor'},
+    { id: 'deviceOthers', name: 'Otros'}
+  ]
+  
+  bsModalRef: BsModalRef;
+
   public formOrden: FormGroup;
+  // USER
   results$: Observable<any>;  
   @ViewChild('selectUserInput') selectUserInput;
   userLoading = false;
   userInput$ = new Subject<string>();
 
-  public formulario = <string>''
-  public ram: FormGroup;
-  public hdd: FormGroup;
-  public pc: FormGroup;
-  public router: FormGroup;
-  public monitor: FormGroup;
-  public impresora: FormGroup;
-  public otros: FormGroup;
-  
-  public ramList = <any>[];
-  public hddList = <any>[];
-  public dataDevice = <any>{};
+  // DEVICE
+  device$: Observable<any>;  
+  @ViewChild('selectDeviceInput') selectDeviceInput;
+  deviceLoading = false;
+  deviceInput$ = new Subject<string>();  
+
+  selectedDevice: any; // escoger equipo
 
   constructor(
     private builder: FormBuilder,
-    private rest: RestService,) { }
+    private rest: RestService,
+    private modalService: BsModalService,) { }
 
   ngOnInit(): void {
     this.formOrden = this.builder.group({
@@ -41,23 +51,13 @@ export class RegistroOrdenComponent implements OnInit {
       description: ['', Validators.required],
     });
 
-    this.ram = this.builder.group({
-      version: ['', Validators.required],
-      capacity: ['', Validators.required],
-      serial: ['', Validators.required],
-    });
-
-    this.hdd = this.builder.group({      
-      model: ['', Validators.required],
-      capacity: ['', Validators.required],
-      serial: ['', Validators.required],
-    });
-    this.formPc();
+    
     this.loadUsers()
-
+    this.loadDevices()
     // this.formRouter();
   }
 
+  // USERS
   private loadUsers() {
     this.results$ = concat(
       of([]), // default items
@@ -87,10 +87,11 @@ export class RegistroOrdenComponent implements OnInit {
   selectUser = (e) => {
     if (e) {
       if (!e._id) {
-        const initialData = {...e, ...{manager: null, role: 'user'}}
+        this.bsModalRef = this.modalService.show(
+          ClienteComponent
+        );
       } else {
         this.formOrden.patchValue({user: e})
-        console.log(this.formOrden.value)
       }
     }
   }
@@ -99,67 +100,62 @@ export class RegistroOrdenComponent implements OnInit {
     return item._id;
   }
 
-  public formPc() {
-    this.pc = this.builder.group({
-      model: ['', Validators.required],
-      make: ['', Validators.required],
-      type: ['', Validators.required],
-      serial: ['', Validators.required],
-      proCache: [''],
-      proModel: [''],
-      proMake: [''],
-      proSerial: [''],
-      loader: [''],
-      battery: [''],
-      description: ['']
-    });
+  // FIN USERS
+
+  // DEVICES
+  private loadDevices() {
+    this.device$ = concat(
+      of([]), // default items
+      this.deviceInput$.pipe(
+        distinctUntilChanged(),
+        tap(() => this.deviceLoading = true),
+        switchMap(term => this.singleSearchDevice$(term).pipe(
+          catchError(() => of([])), // empty list on error
+          tap(() => this.deviceLoading = false)
+        ))
+      )
+    );
+  }
+  singleSearchDevice$ = (term) => {
+    const q = [
+      `${this.selectedDevice.id}?`,
+      `filter=${term}`,
+      `&fields=model,make,serial`,
+      `&page=1&limit=5`,
+      `&sort=name&order=-1`,
+    ];
+    return this.rest.get(q.join('')).pipe(
+      map((a) => a.docs)
+    )
   }
 
-  onChange (value){
-    this.formulario = value
+  selectDevices = (e) => {
+    let component: any;
+    if (this.selectedDevice.id === 'devicePc') component = PcComponent;
+    if (this.selectedDevice.id === 'devicePrinter') component = '';
+    if (this.selectedDevice.id === 'deviceRouter') component = '';
+    if (this.selectedDevice.id === 'deviceMonitor') component = '';
+    if (this.selectedDevice.id === 'deviceOthers') component = '';
 
+    if (e) {
+      if (!e._id) {
+        this.bsModalRef = this.modalService.show(
+          component
+        );
+      } else {
+        this.formOrden.patchValue({device: e})
+        console.log(this.formOrden.value)
+      }
+    }
   }
 
-  submitRam() {
-    this.ramList.push(this.ram.value);
-  }
-  deleteRam(id) {
-    this.ramList.splice(id, 1);
-  }
+  // FIN DEVICES
 
-  submitHdd() {
-    this.hddList.push(this.hdd.value);
-  }
-  deleteHdd(id) {
-  this.hddList.splice(id, 1);
-  }
+  
 
   submit() {
     const data = {
 
     }
   }
-
-//   parseDevice() {
-//     this.dataDevice = {}
-//     switch (this.formulario) {
-//       case 'pc':
-//         this.dataDevice = {
-//           model
-// make
-// type
-// serial
-// ram
-// hdd
-// processor
-// loader
-// battery
-// description
-//         }
-//         break;
-    
-//       default:
-//         break;
-//     }
-//   }
 }

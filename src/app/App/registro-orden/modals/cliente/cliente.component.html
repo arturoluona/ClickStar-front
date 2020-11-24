@@ -1,0 +1,45 @@
+<div class="container">
+    <h5 class="mt-2">Registrar Cliente</h5>
+    <hr>
+    
+    <form  [formGroup]="form" (submit)="submit()">
+        <div class="form-goup">
+            <label> Nombre </label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Nombre y Apellido (*)" >
+        </div>
+
+        <div class="form-goup">
+            <label> Cedula </label>
+            <input type="text" class="form-control" formControlName="ci" placeholder="25889343" >
+        </div>
+        
+        <div class="form-goup">
+            <label> Email </label>
+            <input type="text" class="form-control" formControlName="email" placeholder="myemail@email.com">
+        </div>
+    
+            
+        <div class="form-goup">            
+            <label>Teléfono</label>
+            <input type="text" class="form-control" formControlName="phone" placeholder="04247327689">
+        </div>
+
+        <div class="form-goup">
+            <!-- Telefono Principal -->
+            <label > Ciudad</label>
+            
+            <input type="text" class="form-control" formControlName="city" placeholder="San Cristobal">
+            
+        </div>
+        <div class="form-goup">
+            <label>Direccion</label>
+            <input type="text" class="form-control" formControlName="country" placeholder="Av carabobo">
+            
+        </div>
+        
+        <div class="d-flex justify-content-between mt-3 pb-3">
+            <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid" type="submit">Save changes</button>
+        </div>
+    </form>
+</div>

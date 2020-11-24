@@ -32,6 +32,8 @@ import { FormMonitorComponent } from './App/lista-equipos/form-monitor/form-moni
 import { FormRouterComponent } from './App/lista-equipos/form-router/form-router.component';
 import { FormOthersComponent } from './App/lista-equipos/form-others/form-others.component';
 import { InventoryComponent } from './App/inventory/inventory.component';
+import {ClienteComponent} from './App/registro-orden/modals/cliente/cliente.component';
+import { PcComponent } from './App/registro-orden/modals/pc/pc.component'
 
 
 const rutas: Routes = [
@@ -141,7 +143,9 @@ const rutas: Routes = [
     FormRouterComponent,
     FormOthersComponent,
     InventoryComponent,
-    LoadingBtnDirective
+    LoadingBtnDirective,
+    ClienteComponent,
+    PcComponent
   ],
   imports: [
     BrowserModule,ChartsModule,
@@ -149,7 +153,7 @@ const rutas: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ModalModule,
+    ModalModule.forRoot(),
     NgSelectModule
   ],
   providers: [CookieService, AuthGuard],
