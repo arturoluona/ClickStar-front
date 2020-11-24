@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {RestService} from '../../rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {concat, Observable, of, Subject} from "rxjs";
+import {catchError, distinctUntilChanged, finalize, map, switchMap, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-registro-orden',
@@ -8,6 +10,12 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
   styleUrls: ['./registro-orden.component.css']
 })
 export class RegistroOrdenComponent implements OnInit {
+
+  public formOrden: FormGroup;
+  results$: Observable<any>;  
+  @ViewChild('selectUserInput') selectUserInput;
+  userLoading = false;
+  userInput$ = new Subject<string>();
 
   public formulario = <string>''
   public ram: FormGroup;
@@ -27,6 +35,12 @@ export class RegistroOrdenComponent implements OnInit {
     private rest: RestService,) { }
 
   ngOnInit(): void {
+    this.formOrden = this.builder.group({
+      user: ['', Validators.required],
+      device: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+
     this.ram = this.builder.group({
       version: ['', Validators.required],
       capacity: ['', Validators.required],
@@ -39,8 +53,50 @@ export class RegistroOrdenComponent implements OnInit {
       serial: ['', Validators.required],
     });
     this.formPc();
+    this.loadUsers()
 
     // this.formRouter();
+  }
+
+  private loadUsers() {
+    this.results$ = concat(
+      of([]), // default items
+      this.userInput$.pipe(
+        distinctUntilChanged(),
+        tap(() => this.userLoading = true),
+        switchMap(term => this.singleSearchUser$(term).pipe(
+          catchError(() => of([])), // empty list on error
+          tap(() => this.userLoading = false)
+        ))
+      )
+    );
+  }
+  singleSearchUser$ = (term) => {
+    const q = [
+      `users?`,
+      `filter=${term}`,
+      `&fields=name,email,ci,phone`,
+      `&page=1&limit=5`,
+      `&sort=name&order=-1`,
+    ];
+    return this.rest.get(q.join('')).pipe(
+      map((a) => a.docs)
+    )
+  }
+
+  selectUser = (e) => {
+    if (e) {
+      if (!e._id) {
+        const initialData = {...e, ...{manager: null, role: 'user'}}
+      } else {
+        this.formOrden.patchValue({user: e})
+        console.log(this.formOrden.value)
+      }
+    }
+  }
+
+  trackByFn(item: any) {
+    return item._id;
   }
 
   public formPc() {

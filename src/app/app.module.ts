@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AuthGuard} from './auth.guard';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { HomeComponent } from './App/home/home.component'
 import { LoginComponent } from './App/login/login.component';
@@ -148,7 +149,8 @@ const rutas: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ModalModule
+    ModalModule,
+    NgSelectModule
   ],
   providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]

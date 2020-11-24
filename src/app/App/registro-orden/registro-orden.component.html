@@ -1,93 +1,52 @@
-<body class="body">
+<div class="container">
+	<h5 class="mt-1">Registro de Orden</h5>
+	<hr>
+	<form [formGroup]="formOrden">
+	<label>Cliente</label>
+	  
+            <ng-select #selectProductRef [items]="results$ | async"
+                       formControlName="user"
+                       bindLabel="name"
+                       (close)="selectProductRef.blur(); selectProductRef.focus()"
+                       [addTag]="true"
+                       [multiple]="false"
+                       [disabled]="true"
+                       [hideSelected]="true"
+                       [trackByFn]="trackByFn"
+                       [minTermLength]="3"
+                       [required]="true"
+                       (change)="selectUser($event)"
+                       [loading]="userLoading"
+                       [typeToSearchText]="'Buscar Cliente'"
+                       [typeahead]="userInput$">
+              <ng-template ng-label-tmp let-item="item">
+                {{item?.name}}<small class="pl-2"><i>{{item?.ci}}</i></small>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                
+                    <div class="p-1">{{item?.name}} &nbsp;&nbsp;&nbsp;<small><i>{{item?.ci}}</i></small></div>
+                    
+              </ng-template>
+            </ng-select>
 
-    <div class="container" id="f">
-		<h3>Datos del cliente</h3>
-    </div> 
-<div class="container ">
-		<label > Cedula/RIF </label>
-		<div class="row" >
-      		<div class="col-auto">
-      		<select class="form-control m-0"  id="tipo_ced" name="tipo_ced" style="width: 60px;">
-	          <option value="V">V</option>
-	          <option value="E">E</option>
-	          <option value="J">J</option>
-	          <option value="R">R</option>
-	        </select>
-      		</div>
-	       	<div class="col-7">
-	       		<input type="text" maxlength="" class="form-control" id="cedula" name="cedula"  placeholder="Ingrese cedula/RIF (*)" >
-	       	</div>
-	       	<div class="col-5 p-3">
-	       		<button type="button" id="buscarCed" class="btn btn-info">Verificar</button>
-	       	</div>
-           </div>
-           
-           <div class="form-goup">
-            <label> Nombre </label>
-            <input type="text" class="form-control" maxlength="40" id="nombre" name="nombre" placeholder="Nombre y Apellido (*)"  onKeyPress="return soloLetras(event)">
-        </div>
-         
-        <div class="form-goup">
-            <label> Empresa </label>
-            <input type="text" class="form-control" maxlength="30" id="empresa" name="empresa" placeholder="Nombre de la empresa (si pertenece a una)">
-        </div>
-    
-            
-        <div class="form-goup">
-            <!-- Telefono Principal -->
-            <label > Numeros telefonicos</label>
-            <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <select class="form-control"  id="tipo_tel1" name="tipo_tel1" style="width: 90px;">
-                      <option value="0416">0416</option>
-                      <option value="0426">0426</option>
-                      <option value="0414">0414</option>
-                      <option value="0424">0424</option>
-                      <option value="0412">0412</option>
-                      <option value="0276">0276</option>
-                      
-                    </select>
-                  </div>
-                 <input type="text" class="form-control" maxlength="7" id="numero1" name="numero1"  placeholder="Numero Telefonico (*)"  onKeyPress="return SoloNumeros(event)">
-            </div>
-            <!-- Telefono Secundario -->
-            <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <select class="form-control"  id="tipo_tel2" name="tipo_tel2" style="width: 90px;">
-                      <option value="0416">0416</option>
-                      <option value="0426">0426</option>
-                      <option value="0414">0414</option>
-                      <option value="0424">0424</option>
-                      <option value="0412">0412</option>
-                      <option value="0276">0276</option>
-                      
-                    </select>
-                  </div>
-                  <input type="text" class="form-control" maxlength="7" id="numero2" name="numero2"  placeholder="Numero Secundario" onKeyPress="return SoloNumeros(event)">
-            </div>
-        </div>
+            <!-- <label>{{ "ORDERS.CUSTOMER" | translate }}</label>
+            <input type="text" disabled formControlName="customer" class="form-control" aria-describedby="emailHelp"
+              placeholder="" /> -->
+	</form>
 </div>
 
 <!-- Para guardar el Correo -->
 
-<div class="form-group col-12">
-    <label >Correo electronico </label>
+<div class="form-group mt-2 col-12">
+    <label>Correo electronico </label>
     <input type="email" class="form-control" maxlength="30" id="email" name="email" placeholder="Correo Electronico (*)">
 </div>
 
-<!-- Para guardar la direccion -->
-
-<div class="form-group col-12">
-<label >Direccion </label>
-<textarea class="form-control" id="direccion" maxlength="100" name="direccion" rows="3" placeholder="Ingrese su direccion (*)"></textarea>
-</div>
-
-<hr>
 <!-- Select para traer los formularios -->
-<div class="form-goup  pb-5">
+<div class="form-goup mt-2 pb-5">
     <div class="" id="f">
 		<h3>Tipo de Equipo</h3>
-    </div>
+</div>
  <select class="form-control btn-group"  id="menu" name="menu"  (change)="onChange($event.target.value)" >
       <option value="" selected="true" disabled="disabled">Seleccionar</option>
       <option value="pc">PC</option>
@@ -536,5 +495,4 @@
 <br>
 
 
-</body>
 <app-navbar></app-navbar>
