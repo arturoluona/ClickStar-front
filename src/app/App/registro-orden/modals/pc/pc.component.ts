@@ -69,7 +69,6 @@ export class PcComponent implements OnInit {
   deleteHdd(id) {
   this.hddList.splice(id, 1);
   }
-
   submit() {
     const send = {
       model: this.pc.value.model,
