@@ -1,10 +1,11 @@
-		  <!-- Formulario Monitor -->
+          <!-- Formulario Monitor -->
+           <div class="container">
           <div  class="col-md-8">
             <div class="form-group">
                 <br>
                 <h3>MONITOR</h3>
               </div>
-              <form  [formGroup]="form" (submit)="submit()">
+              <form  [formGroup]="form1" (submit)="submit()">
               <div class="form-group">
                   <label>Marca</label>
                   <input type='text' class='form-control' formControlName="make" maxlength="30" name='mon_marca' placeholder='Marca (*)'>
@@ -35,3 +36,4 @@
             </div>
             </form>
         </div>
+    </div>
