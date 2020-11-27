@@ -16,7 +16,7 @@ export class ClienteComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private rest: RestService,    
-    public bsModalRef: BsModalRef
+    public bsModalRef: BsModalRef,
     ) { }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class ClienteComponent implements OnInit {
       phone: ['', Validators.required],
       ci: ['', Validators.required],
       city: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
     });
   }
 
@@ -42,7 +42,7 @@ export class ClienteComponent implements OnInit {
   
   close = () => this.bsModalRef.hide()
 
-  cb = (e) => {
+  cb = () => {
     this.close()
   }
 

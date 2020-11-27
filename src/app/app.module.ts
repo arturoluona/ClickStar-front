@@ -9,7 +9,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AuthGuard} from './auth.guard';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectModule } from '@ng-select/ng-select'; 
+
 
 import { HomeComponent } from './App/home/home.component'
 import { LoginComponent } from './App/login/login.component';
@@ -32,7 +33,12 @@ import { FormRouterComponent } from './App/lista-equipos/form-router/form-router
 import { FormOthersComponent } from './App/lista-equipos/form-others/form-others.component';
 import { InventoryComponent } from './App/inventory/inventory.component';
 import {ClienteComponent} from './App/registro-orden/modals/cliente/cliente.component';
-import { PcComponent } from './App/registro-orden/modals/pc/pc.component'
+import { PcComponent } from './App/registro-orden/modals/pc/pc.component';
+import { ImpresoraComponent } from './App/registro-orden/modals/impresora/impresora.component';
+import { MonitorComponent } from './App/registro-orden/modals/monitor/monitor.component';
+import { RouterComponent } from './App/registro-orden/modals/router/router.component';
+import { OtrosComponent } from './App/registro-orden/modals/otros/otros.component'
+
 
 
 const rutas: Routes = [
@@ -144,7 +150,12 @@ const rutas: Routes = [
     InventoryComponent,
     LoadingBtnDirective,
     ClienteComponent,
-    PcComponent
+    PcComponent,
+    ImpresoraComponent,
+    MonitorComponent,
+    RouterComponent,
+    OtrosComponent,
+
   ],
   imports: [
     BrowserModule,ChartsModule,
@@ -153,7 +164,9 @@ const rutas: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+ 
+
   ],
   providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]
