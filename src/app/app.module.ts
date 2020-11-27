@@ -4,7 +4,6 @@ import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './App/app.component';
 import { RouterModule, Routes } from '@angular/router';
 import {LoadingBtnDirective} from "./loading-btn.directive";
-import {RestService} from './rest.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
