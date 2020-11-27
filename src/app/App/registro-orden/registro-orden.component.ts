@@ -6,6 +6,11 @@ import {catchError, distinctUntilChanged, finalize, map, switchMap, tap} from "r
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import {ClienteComponent} from './modals/cliente/cliente.component';
 import {PcComponent} from './modals/pc/pc.component';
+import { ImpresoraComponent } from './modals/impresora/impresora.component';
+import { MonitorComponent } from './modals/monitor/monitor.component';
+import { RouterComponent } from './modals/router/router.component';
+import { OtrosComponent } from './modals/otros/otros.component'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro-orden',
@@ -52,14 +57,16 @@ export class RegistroOrdenComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private rest: RestService,
-    private modalService: BsModalService,) { }
+    private modalService: BsModalService,
+    private router: Router,) { }
 
   ngOnInit(): void {
     this.formOrden = this.builder.group({
       customer: ['', Validators.required],
       tecnico: ['', Validators.required],
       device: ['', Validators.required],
-      description: ['', Validators.required],      
+      description: [''],    
+      price: [''],   
       status: ['', Validators.required],
     });
 
@@ -145,10 +152,10 @@ export class RegistroOrdenComponent implements OnInit {
   selectDevices = (e) => {
     let component: any;
     if (this.selectedDevice.id === 'devicePc') component = PcComponent;
-    if (this.selectedDevice.id === 'devicePrinter') component = '';
-    if (this.selectedDevice.id === 'deviceRouter') component = '';
-    if (this.selectedDevice.id === 'deviceMonitor') component = '';
-    if (this.selectedDevice.id === 'deviceOthers') component = '';
+    if (this.selectedDevice.id === 'devicePrinter') component = ImpresoraComponent;
+    if (this.selectedDevice.id === 'deviceRouter') component = RouterComponent;
+    if (this.selectedDevice.id === 'deviceMonitor') component = MonitorComponent;
+    if (this.selectedDevice.id === 'deviceOthers') component = OtrosComponent;
 
     if (e) {
       if (!e._id) {
@@ -156,8 +163,6 @@ export class RegistroOrdenComponent implements OnInit {
           component
         );
       } else {
-        this.formOrden.patchValue({device: e})
-        console.log(this.formOrden.value)
       }
     }
   }
@@ -180,6 +185,14 @@ export class RegistroOrdenComponent implements OnInit {
   
 
   submit() {
-    console.log(this.formOrden.value)
+    const send = {
+      customer: this.formOrden.value.customer._id,
+      tecnico: this.formOrden.value.tecnico._id,
+      price: (this.formOrden.value.price) ? this.formOrden.value.price : 0,
+      description: this.formOrden.value.description,
+      device: this.formOrden.value.device,
+      status: this.formOrden.value.status
+    }
+    this.rest.post('orden', send).subscribe(() => this.router.navigate(['/', 'lista-o']))
   }
 }

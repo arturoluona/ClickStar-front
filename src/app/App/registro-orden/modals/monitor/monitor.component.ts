@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal'
   styleUrls: ['./monitor.component.css']
 })
 export class MonitorComponent implements OnInit {
-  public form1: FormGroup;
+  public form: FormGroup;
 
 
   constructor(
@@ -18,7 +18,7 @@ export class MonitorComponent implements OnInit {
     public bsModalRef: BsModalRef
     ) { }
   ngOnInit(): void {
-    this.form1 = this.builder.group({
+    this.form = this.builder.group({
       model: ['', Validators.required],
       make: ['', Validators.required],
       serial:['', Validators.required],
@@ -29,16 +29,7 @@ export class MonitorComponent implements OnInit {
 
   }
   submit(){
-    const send = {
-      model: this.form1.value.model,
-      make: this.form1.value.make,
-      serial: this.form1.value.serial,
-      cabezal: this.form1.value.cabezal,
-      inch: this.form1.value.inch,
-      description: this.form1.value.description,
-
-    }
-    this.rest.post('deviceMonitor', send).subscribe(() => {
+    this.rest.post('deviceMonitor', this.form.value).subscribe(() => {
       this.close()
     })
   }
