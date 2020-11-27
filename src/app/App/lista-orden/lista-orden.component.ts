@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ListaOrdenService} from './lista-orden.service'
+import {ActivatedRoute, Router} from '@angular/router';
+import {RestService} from '../../rest.service';
 
 @Component({
   selector: 'app-lista-orden',
@@ -8,77 +9,24 @@ import {ListaOrdenService} from './lista-orden.service'
 })
 export class ListaOrdenComponent implements OnInit {
 
- public items = <any>[]
+  public items = <any>[];
+  public search = '';
   constructor(
+    private rest: RestService    
+    ) {}
     
-    public serviceLista: ListaOrdenService
-    
-    ) {
-    this.items=[
-      {
-        ID: "1412334",
-        name: "jofry caceres",
-        type:"CPU",
-        date: new Date(),
-        status:"process",
-        description:"description",
-        divice: {
-          D: "1412334",
-          name: "Gregory Morantes",
-          type:"CPU",
-          date: new Date(),
-          status:"process",
-          description:"description",
-        }
-      },
-      {
-        ID: "22341324",
-        name: "Arturo Luna",
-        type:"impresora",
-        date: new Date(),
-        status:"wait",
-        description:"description",
-      },
-      {
-        ID: "312342134",
-        name: "jesus moncada",
-        type:"monitor",
-        date: new Date(),
-        status:"deliver",
-        description:"description",
-      },
-      {
-        ID: "4232342",
-        name: "Carlos ll",
-        type:"laptop",
-        date: new Date(),
-        status:"finalize",
-        description:"description",
-      },
-      {
-        ID: "32134",
-        name: "Yisus craicy",
-        type:"modem",
-        date: new Date(),
-        status:"finalize",
-        description:"description",
-      },
-      {
-        ID: "312342134",
-        name: "jesus ccccccccccccccccccccccccccccccccccccccc",
-        type:"router",
-        date: new Date(),
-        status:"deliver",
-        description:"description",
-      },
-    ]
-   }
 
   ngOnInit(): void {
+    this.load(false)
   }
-
-  openModal(data: any) { 
-    this.serviceLista.openOrder(data)
+  
+  load(a: any) {
+    this.items = []
+    const query = (a) ? `filter=${a}&fields=idOrden` : ''
+    this.rest.get(`orden?${query}`).subscribe( data => {
+      data.docs.map(a => {
+        this.items.push(a);
+      })
+    })
   }
-
 }

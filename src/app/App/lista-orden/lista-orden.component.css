@@ -44,7 +44,7 @@ background-color: white;
   border: solid 2px #ffffff82;
 }
 .finalize{
- background-color: #ff7675;
+ background-color: #75eaff;
   
     margin-bottom: .25rem;
   border-radius: 1rem;
@@ -66,6 +66,18 @@ background-color: white;
   
     margin-left: 70% !important;
   border: solid 2px #ffffff82;
+}
+.cancelado{
+  background-color:#ff7675;
+
+  margin-bottom: .25rem;
+border-radius: 1rem;
+color: white;
+width: 20px;
+height: 20px;
+
+  margin-left: 70% !important;
+border: solid 2px #ffffff82;
 }
 
 .list-color {
