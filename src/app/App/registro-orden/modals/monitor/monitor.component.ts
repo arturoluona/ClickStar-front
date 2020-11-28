@@ -29,7 +29,16 @@ export class MonitorComponent implements OnInit {
 
   }
   submit(){
-    this.rest.post('deviceMonitor', this.form.value).subscribe(() => {
+    const send = {
+      model: this.form.value.model,
+      make: this.form.value.make,
+      serial: this.form.value.serial,
+      cabezal: this.form.value.cabezal,
+      inch: this.form.value.inch,
+      description: this.form.value.description,
+
+    }
+    this.rest.post('deviceMonitor', send).subscribe(() => {
       this.close()
     })
   }

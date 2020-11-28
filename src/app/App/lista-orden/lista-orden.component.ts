@@ -24,6 +24,7 @@ export class ListaOrdenComponent implements OnInit {
     this.items = []
     const query = (a) ? `filter=${a}&fields=idOrden` : ''
     this.rest.get(`orden?${query}`).subscribe( data => {
+      console.log(data);
       data.docs.map(a => {
         this.items.push(a);
       })
