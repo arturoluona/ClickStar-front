@@ -20,22 +20,11 @@
                   <input type='text' class='form-control' formControlName="serial" maxlength="30" name='rou_serial' placeholder='Serial(*)'>
               </div>
               
-              
-              <div class='custom-control custom-switch'>
-                <input type='checkbox' class='custom-control-input off' id='check_cargador' name='check_cargador'>
-                <input type="hidden" id="router_cargador" name="" value="no">
-                <label class='custom-control-label' for="check_cargador" >Cargador</label>
+              <div class="form-group">
+                <label>Cargador</label>
+                <input type='text' class='form-control' formControlName="loader"placeholder='Opcional'>
               </div>
-              
-              <div class="form-group" id="cargadorForm">
-                  <div class="row">
-                    <div class="col-7">
-                      <input type='text' class='form-control' id='rou_serial_cargador' maxlength="30" name='rou_serial_cargador' placeholder='Serial (*)'>
-                    </div>
-                  </div>
-              </div>
-              
-              
+
               <div class='form-group'>
                   <label for='rou_observacion'>Observaciones</label>
                   <textarea class='form-control' rows='3' formControlName="description" maxlength="100" name='rou_observacion' placeholder="Observaciones realizadas"></textarea>

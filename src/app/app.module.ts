@@ -10,7 +10,9 @@ import {CookieService} from 'ngx-cookie-service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AuthGuard} from './auth.guard';
 import { NgSelectModule } from '@ng-select/ng-select'; 
-
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgJsonEditorModule } from 'ang-jsoneditor' 
 
 import { HomeComponent } from './App/home/home.component'
 import { LoginComponent } from './App/login/login.component';
@@ -165,8 +167,9 @@ const rutas: Routes = [
     HttpClientModule,
     ModalModule.forRoot(),
     NgSelectModule,
- 
-
+    TagInputModule,
+    BrowserAnimationsModule,
+    NgJsonEditorModule
   ],
   providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]

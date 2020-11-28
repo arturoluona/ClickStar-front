@@ -29,16 +29,7 @@ export class ImpresoraComponent implements OnInit {
     })
   }
   submit(){
-    const send = {
-      model: this.form.value.model,
-      make: this.form.value.make,
-      serial: this.form.value.serial,
-      cabezal: this.form.value.cabezal,
-      tinta: this.form.value.tinta,
-      description: this.form.value.description,
-
-    }
-    this.rest.post('devicePrinter', send).subscribe(() => {
+    this.rest.post('devicePrinter', this.form.value).subscribe(() => {
       this.close()
     })
   }

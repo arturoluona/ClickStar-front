@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { RestService } from 'src/app/rest.service';
 import { ServiceService } from './service.service';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import { BsModalService, } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+
 
 
 @Component({
@@ -9,63 +15,68 @@ import { ServiceService } from './service.service';
 })
 export class ServiceComponent implements OnInit {
 
-  public agg= <any>[]
-
-    cop=0.007;
-    rpta=<number>0;
-    precio=<number>10000;
-
-    Operacion (){
-      this.rpta=this.precio*this.cop
-
-     
-    }
+  public form: FormGroup;
+  public items = <any>[];
+  public search = '';
+  
+  public typeDevices = [
+    { value: 'laptop', name: 'laptop'},
+    { value: 'cpu', name: 'cpu'},
+    { value: 'impresora', name: 'Impresora'},
+    { value: 'modem/router', name: 'Router/Modem'},
+    { value: 'monitor', name: 'Monitor'},
+    { value: 'otros', name: 'Otros'}
+  ];
+    modalRef: BsModalRef;
+    disableButton = true;
 
   constructor(
 
-    public RegistrarService: ServiceService
+    private rest: RestService,    
+    public RegistrarService: ServiceService,
+    private builder: FormBuilder,
+    private modalService: BsModalService,
 
-  ) { 
-
-    this.agg=[{
-      servicio:"Mantenimiento Preventivo Software /Mantenimiento Preventivo Software",
-      equipo:"CPU",
-      rpta:"",
-    },
-    {
-
-      servicio:"Mantenimiento Preventivo Software",
-      equipo:"CPU",
-      precio:"250000",
-    },
-    {
-
-      servicio:"S/o + Programas Basicos",
-      equipo:"Laptop",
-      precio:"50.000",
-    },
-    {
-
-      servicio:"Mantenimiento Preventivo Hardware",
-      equipo:"Modem",
-      precio:"150.000",
-    },
-    {
-
-      servicio:"Mantenimiento Correctivo Hardware",
-      equipo:"Monitor",
-      precio:"450.000",
-    },
+  ) { }
   
-
-  ]
-
-  }
-
   ngOnInit(): void {
+    this.load(false);
+    this.form = this.builder.group({
+      name: ['', Validators.required],
+      type: ['', Validators.required],
+      price: ['', Validators.required],
+      description: ['',],
+    })
+    
   }
-openModal (){
-  this.RegistrarService.openOrder()
-}
+
+  openModal (template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
+    this.disableButton = true;
+  }
+
+  submit(){
+    this.rest.post('services', this.form.value).subscribe(() => {
+      this.modalRef.hide()
+    })
+  }
+  openModalData (template: TemplateRef<any>,data){
+    this.form.patchValue(data);
+    this.form.disable();
+    this.disableButton = false
+    this.modalRef = this.modalService.show(template);
+  }
+
+  load(a: any) {
+    const query = (a) ? `filter=${a}&fields=name,type` : ''
+    this.rest.get(`services?${query}`).subscribe( data => {
+      
+    this.items = [];
+      console.log(data);
+      data.docs.map(a => {
+        this.items.push(a);
+      })
+    })
+  }
   
 }

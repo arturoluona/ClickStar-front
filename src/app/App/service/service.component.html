@@ -5,47 +5,77 @@
       <div class="input-group-prepend">
         <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
       </div>
-      <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+      <input type="text" class="form-control" [ngModel]="search" (ngModelChange)="load($event)"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
     </div>
      <div class="row" style="color: rgb(33, 165, 165); text-align: center;">
-         <div class="col-6">
+         <div class="col-5">
              <p >Servicios</p>
          </div>
-         <div class="col-3">
+         <div class="col-4">
              <p>Equipo</p>
          </div>
          <div class="col-3">
              <p>Precio</p>
          </div>
      </div>
-  <div *ngFor="let data of agg" class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
-    <div class="row">
-        <div class="col-6">
-            <p #textContent id="read-more" class="text-1 mb-1 truncate">{{data?.servicio}}</p>      
-            <div class="read-more-link">
-                <a readMore [readMore-length]="4" [readMore-element]="textContent">
- 
-
-                    <span class="less">Less <i class="fas fa-angle-right" aria-hidden="true"></i></span>
-                    <span class="more">More <i class="fas fa-angle-right" aria-hidden="true"></i></span>
-                </a>
-            </div>
-
+  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
+    <div class="row" (click)="openModalData(template,data)">
+        <div class="col-5">
+            <p class="text-1 truncate">{{data?.name}}</p>      
 
 
         </div>
-        <div class="col-3 p-0 m-0 barras-laterales"style="text-align: center;"> <p style="position: relative; top: 20px;">{{data?.equipo}}</p></div>
+        <div class="col-4   text-1"style="text-align: center;"> <p >{{data?.type}}</p></div>
         <div class="col-3">
-            <p style="position: relative; top: 15px; text-align: center; color: rgb(67, 146, 96);">{{rpta}} Cop</p>
+            <p  class="text-1" style=" text-align: center; color: rgb(67, 146, 96);">{{data?.price}} Cop</p>
         </div>
     </div>
 
   </div>
-
-
    
-  <button type="button" class="btn btn-dark btn-1" (click)="openModal()"><i class="fas fa-plus"></i></button>
   
+  <!-- Modal Registro de Servicios -->
+<ng-template #template>
+  <div class="modal-content">
+                <form  [formGroup]="form" (submit)="submit()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registro Servicio</h5>
+        </div>
+        <div class="modal-body">
+
+            <div class="Container">
+                <div class="from-group">
+                    <label for=""> Servicio</label>
+                  <input type="text" class="form-control border-muted"  formControlName="name" style="width: 100%; height: 40px;" value="" placeholder="Mantenimiento Correctivo Software" > <br>
+                  <label>Tipo</label>
+                  <ng-select [items]="typeDevices"
+                             bindLabel="name"
+                             bindValue="value"
+                             placeholder="Selecciona un equipo"
+                             formControlName="type"
+                             >
+                  </ng-select>
+                <label class="mt-4">Precio Servicio</label>
+                  <input type="" class="form-control" formControlName="price" style="width: 100%; height: 40px;"  value="" placeholder="20.000" >
+                  <label class="mt-4">Observacion:</label>
+                  <textarea class='form-control' formControlName="description"></textarea>
+                </div>
+              </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="submit" class="btn btn-primary" *ngIf="disableButton" [disabled]="form.invalid" type="submit">Registrar</button>
+        </div>
+      </div>
+                </form>
+    </div>
+</ng-template>
+<button type="button" class="btn btn-dark btn-1" (click)="openModal(template)" id="exampleModal"><i class="fas fa-plus"></i></button>
+
+
+
 </body>
  
 <app-navbar></app-navbar>

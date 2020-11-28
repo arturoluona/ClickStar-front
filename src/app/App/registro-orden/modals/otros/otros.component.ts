@@ -20,6 +20,7 @@ export class OtrosComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.builder.group({
+      name: ['', Validators.required],
       make: ['', Validators.required],
       model: ['', Validators.required],
       serial: ['', Validators.required],
@@ -27,14 +28,7 @@ export class OtrosComponent implements OnInit {
     })
   }
   submit(){
-    const send = {
-      model: this.form.value.model,
-      make: this.form.value.make,
-      serial: this.form.value.serial,
-      description: this.form.value.description,
-
-    }
-    this.rest.post('deviceOthers', send).subscribe(() => {
+    this.rest.post('deviceOthers', this.form.value).subscribe(() => {
       this.close()
     })
   }
