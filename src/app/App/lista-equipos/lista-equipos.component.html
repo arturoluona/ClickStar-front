@@ -1,42 +1,44 @@
-<body style="background-color: rgb(245, 245, 245);">
-  
 <div class="container">
     <br>
     <h3 style="text-align: center;"><i class="fas fa-tv p-1"></i>Equipos</h3>
+			<ng-select [items]="typeDevices"
+					   bindLabel="name"
+					   placeholder="Selecciona un equipo"
+             (change)="selectDevices($event)">
+			</ng-select>
     <hr>
-    <div class="input-group mb-3">
+    <div *ngIf="selectedDevice" class="input-group mb-3">
       <div class="input-group-prepend">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fas fa-search"></i></button>
       </div>
-      <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+      <input type="text" class="form-control" [ngModel]="search" (ngModelChange)="load($event)"  aria-label="Example text with button addon" aria-describedby="button-addon1">
     </div>
-  <div class="container">
-    <ul class="list-group list-group-horizontal">
-        <li class="list-group text-1 " style="color: cadetblue;">CPU </li>
-        <li class="list-group ml-2 mb-2 text-1 " style="color: cadetblue;">Laptop </li>
-        <li class="list-group ml-2 mb-2 text-1" style="color: cadetblue;">Monitor </li>
-        <li class="list-group ml-2 mb-2 text-1" style="color: cadetblue;">Impresora </li>
-        <li class="list-group ml-2 mb-2 text-1"style="color: cadetblue;">Router </li>
-        <li class="list-group ml-2 mb-2 text-1" style="color: cadetblue;">Otros </li>
-    </ul>
-   
-  </div>
-    <div  class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
-      <div class="row">
-  
-        <div class="col-8 truncate " style="border-left:solid 1px; border-color: steelblue;">
-          <p><i class="fas text-muted fa-laptop mr-2"></i>Samsung | P30-505020 </p>
-          <p class=" mb-1"><i class="fas text-muted fa-file mr-2"></i>hali1bndñañojc</p>
+    <div *ngFor="let data of items" class="container shadow pt-2 pl-2 mb-2 list-color rounded" style="background: white;">
+      
+        <div class="row">
+    
+          <div class="col-8 truncate ">
+            <p>
+              <i class="fas text-muted fa-code-branch mr-2"></i>
+              <span class="color-red">{{data?.serial}}</span>
+            </p>
+            <p class=" mb-1">
+              <i class="fas text-muted fa-file mr-2"></i>
+              {{data.model}}
+            </p>
+          </div>
+          <div class="col-4 text-center">
+              <i (click)="redireccion(data._id)" class="fas shadow fa-file-pdf color-red"></i>
+              <p class="mt-4 text-date">{{data.createdAt | date:'shortDate'}}</p>
+          </div>
         </div>
-        <div class="col-3">
-            <p class="mt-4">16/10/2020</p>
-        </div>
-      </div>
-  
- 
+      
     </div>
- </div> 
-  
 
-</body>
+    <div *ngIf="!(items.length)" class="mt-5 pt-5 text-center">
+      <h4 class="color-red">
+        Selecciona un equipo para listar
+      </h4>
+    </div>
+</div> 
 <app-navbar></app-navbar>

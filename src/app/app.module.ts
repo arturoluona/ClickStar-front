@@ -27,12 +27,6 @@ import { ListaClientesComponent } from './App/lista-clientes/lista-clientes.comp
 import { PieComponent } from './App/graficos/pie/pie.component';
 import { BarrasComponent } from './App/graficos/barras/barras.component';
 import { ListaEquiposComponent } from './App/lista-equipos/lista-equipos.component';
-import { FormLaptopComponent } from './App/lista-equipos/form-laptop/form-laptop.component';
-import { FormCpuComponent } from './App/lista-equipos/form-cpu/form-cpu.component';
-import { FormPrinterComponent } from './App/lista-equipos/form-printer/form-printer.component';
-import { FormMonitorComponent } from './App/lista-equipos/form-monitor/form-monitor.component';
-import { FormRouterComponent } from './App/lista-equipos/form-router/form-router.component';
-import { FormOthersComponent } from './App/lista-equipos/form-others/form-others.component';
 import { InventoryComponent } from './App/inventory/inventory.component';
 import {ClienteComponent} from './App/registro-orden/modals/cliente/cliente.component';
 import { PcComponent } from './App/registro-orden/modals/pc/pc.component';
@@ -93,37 +87,17 @@ const rutas: Routes = [
     path:'registrar-u',
     component: RegistrarUsuarioComponent,
     canActivate: [AuthGuard]
-  },
-  
+  },  
   {
     path:'service',
     component: ServiceComponent,
     canActivate: [AuthGuard]
-  },
+  },  
   {
-    path:'form-laptop',
-    component:FormLaptopComponent
-  },
-  {
-    path:'form-cpu',
-    component:FormCpuComponent
-  },
-  {
-    path: 'form-printer',
-    component:FormPrinterComponent
-  },
-  {
-    path: 'form-monitor',
-    component:FormMonitorComponent
-  },
-  {
-    path: 'form-router',
-    component:FormRouterComponent
-  },
-  {
-    path: 'form-others',
-    component:FormOthersComponent
-  },
+    path:'lista-equipos',
+    component: ListaEquiposComponent,
+    canActivate: [AuthGuard]
+  }
 
 ]
 
@@ -143,12 +117,6 @@ const rutas: Routes = [
     PieComponent,
     BarrasComponent,
     ListaEquiposComponent,
-    FormLaptopComponent,
-    FormCpuComponent,
-    FormPrinterComponent,
-    FormMonitorComponent,
-    FormRouterComponent,
-    FormOthersComponent,
     InventoryComponent,
     LoadingBtnDirective,
     ClienteComponent,
