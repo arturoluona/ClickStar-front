@@ -45,6 +45,7 @@ export class ServiceComponent implements OnInit {
       name: ['', Validators.required],
       type: ['', Validators.required],
       price: ['', Validators.required],
+      proveedor: ['',],
       description: ['',],
     })
     
