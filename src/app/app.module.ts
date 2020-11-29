@@ -12,7 +12,8 @@ import {AuthGuard} from './auth.guard';
 import { NgSelectModule } from '@ng-select/ng-select'; 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgJsonEditorModule } from 'ang-jsoneditor' 
+import { NgJsonEditorModule } from 'ang-jsoneditor';
+import {NumberPickerModule} from 'ng-number-picker';
 
 import { HomeComponent } from './App/home/home.component'
 import { LoginComponent } from './App/login/login.component';
@@ -137,7 +138,8 @@ const rutas: Routes = [
     NgSelectModule,
     TagInputModule,
     BrowserAnimationsModule,
-    NgJsonEditorModule
+    NgJsonEditorModule,
+    NumberPickerModule,
   ],
   providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]
