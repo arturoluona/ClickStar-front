@@ -1,29 +1,24 @@
-<div class="container" style="background-color: rgb(245, 245, 245); height: 100vh;">
+<div class="container pb-5 mb-5" style="background-color: rgb(245, 245, 245);">
   <br>
-  <h3 style="text-align: center;"><i class="fas fa-user-cog"></i>Usuarios</h3>
+  <h3 style="text-align: center;"><i class="fas fa-users p-1"></i>Empleados</h3>
   <hr>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
+      <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fas fa-search"></i></button>
     </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-  </div> 
-
-  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;" (click)="openModal(data)">
-    <div class="row">
-
-      <div class="col-4 truncate ">
-        <p><i class="fas text-muted fa-hashtag mr-2"></i>{{data?.ID}}</p>
-        <p class=" mb-1"><i class="fas text-muted fa-toolbox mr-2"></i>{{data?.nivel}}</p>
-      </div>
-      <div class="col-6 truncate " style="border-left:solid 1px; border-color: steelblue;">
-        <p><i class="fas text-muted fa-user mr-2"></i>{{data?.nombre}}</p>
-        <p class=" mb-1"><i class="fas text-muted fa-at mr-2"></i>{{data?.correo}}</p>
-      </div>
-    </div>
-
+    <input type="text" class="form-control" [ngModel]="search" (ngModelChange)="load($event)"  aria-label="Example text with button addon" aria-describedby="button-addon1">
   </div>
 
+  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;" (click)="OpenModal(data)">
 
+      <div class="truncate pl-2">
+        <p><i class="fas text-muted fa-user mr-2"></i>{{data?.name}}</p>
+        <p class="text-1"><i class="fas text-muted fa-toolbox mr-2"></i> <span class="color-red"> {{data?.role}}</span></p>
+        <p class="text-1"><i class="fas text-muted fa-file mr-2"></i>{{data?.ci}}</p>
+      </div>
+
+  </div>
+  
+  
 </div>
 <app-navbar></app-navbar>

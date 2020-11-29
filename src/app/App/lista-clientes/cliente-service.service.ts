@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteServiceService {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
+
+  role = 'admin';
 
   openOrder(data: any){
 
-    Swal.fire(
-      {
+    Swal.fire({
         
       title: "Detalles",
       icon: null,
@@ -41,8 +45,10 @@ export class ClienteServiceService {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
+      showConfirmButton: (this.role.includes('admin') ) ? true : false,
       confirmButtonText: 'Actualizar'
-      }
-    )
+    }).then((result) => {
+      if (result.isConfirmed) this.router.navigate(['/', 'registrar-u'], { queryParams: {id: data._id}})
+    })
   }
 }

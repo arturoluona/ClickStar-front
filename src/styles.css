@@ -21,6 +21,10 @@
     font-size: 0.8em;
 }
 
+.color-red{
+    color: #f74747;
+}
+
 .custom-card-style {
     background-color: white;
     padding: .5rem 1rem;
