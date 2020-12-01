@@ -1,4 +1,4 @@
-<body class="container" style="background-color: rgb(245, 245, 245); height: 100vh;">   <br>
+<body class="container mb-5 pb-5" style="background-color: rgb(245, 245, 245)">   <br>
     <h2 style="text-align: center;">Services</h2>
     <hr>
     <div class="input-group mb-3">
@@ -40,7 +40,10 @@
                 <form  [formGroup]="form" (submit)="submit()">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Registro Servicio</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{(id) ? '' : 'Registro'}} Servicio</h5>
+          <button *ngIf="id && (user?.role === 'admin')" (click)="delete()"  type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fas color-red fa-trash"></i>
+          </button>
         </div>
         <div class="modal-body">
 
@@ -66,15 +69,13 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
-            <button type="submit" class="btn btn-primary" *ngIf="disableButton" [disabled]="form.invalid" type="submit">Registrar</button>
+            <button type="submit" class="btn btn-primary" *ngIf="disableButton" [disabled]="form.invalid" type="submit">Guardar</button>
         </div>
       </div>
                 </form>
     </div>
 </ng-template>
-<button type="button" class="btn btn-dark btn-1" (click)="openModal(template)" id="exampleModal"><i class="fas fa-plus"></i></button>
-
-
+<button *ngIf="user?.role === 'admin'" type="button" class="btn btn-dark btn-1" (click)="openModal(template)" id="exampleModal"><i class="fas fa-plus"></i></button>
 
 </body>
  

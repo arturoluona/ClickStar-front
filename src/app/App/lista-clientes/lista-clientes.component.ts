@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/rest.service';
-import {ClienteServiceService} from './cliente-service.service'
+import {ClienteServiceService} from './cliente-service.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-lista-clientes',
@@ -9,15 +10,18 @@ import {ClienteServiceService} from './cliente-service.service'
 })
 export class ListaClientesComponent implements OnInit {
 
+  public user: any;
   public items= <any>[];
   public search = '';
   constructor(
+    private cookieService: CookieService,
     private serviceCliente: ClienteServiceService,
     private rest: RestService    
     ) {}
     
 
   ngOnInit(): void {
+    this.user =  JSON.parse(this.cookieService.get('user'));
     this.load(false)
   }
   
@@ -33,5 +37,11 @@ export class ListaClientesComponent implements OnInit {
 
   OpenModal(data: any){
     this.serviceCliente.openOrder(data)
+  }
+  
+  delete(id) {
+    this.rest.alertDelete('users', id).then(() => {
+      this.load(false);
+    })
   }
 }

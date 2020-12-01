@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteServiceService {
 
+  public user: any;
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private cookieService: CookieService) { 
+    this.user =  JSON.parse(this.cookieService.get('user'));}
 
-  role = 'admin';
 
   openOrder(data: any){
 
@@ -45,7 +48,7 @@ export class ClienteServiceService {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      showConfirmButton: (this.role.includes('admin') ) ? true : false,
+      showConfirmButton: (this.user.role.includes('admin') ) ? true : false,
       confirmButtonText: 'Actualizar'
     }).then((result) => {
       if (result.isConfirmed) this.router.navigate(['/', 'registrar-u'], { queryParams: {id: data._id}})

@@ -1,12 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { RestService } from 'src/app/rest.service';
-import { ServiceService } from './service.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { BsModalService, } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-
-
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-service',
@@ -15,6 +12,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class ServiceComponent implements OnInit {
 
+  public id: string;
+  public user: any;
   public form: FormGroup;
   public items = <any>[];
   public search = '';
@@ -32,14 +31,15 @@ export class ServiceComponent implements OnInit {
 
   constructor(
 
-    private rest: RestService,    
-    public RegistrarService: ServiceService,
+    private cookieService: CookieService,
+    private rest: RestService,
     private builder: FormBuilder,
     private modalService: BsModalService,
 
   ) { }
   
   ngOnInit(): void {
+    this.user =  JSON.parse(this.cookieService.get('user'));
     this.load(false);
     this.form = this.builder.group({
       name: ['', Validators.required],
@@ -52,19 +52,26 @@ export class ServiceComponent implements OnInit {
   }
 
   openModal (template: TemplateRef<any>){
+    this.id = null;
+    this.form.reset();
     this.modalRef = this.modalService.show(template);
     this.disableButton = true;
   }
 
   submit(){
-    this.rest.post('services', this.form.value).subscribe(() => {
-      this.modalRef.hide()
+    const method = (this.id) ? 'patch' : 'post';
+    this.rest[method](`services${(this.id) ? '/'+this.id : ''}`, this.form.value).subscribe(() => {
+      this.modalRef.hide();
+      this.load(false);
     })
   }
-  openModalData (template: TemplateRef<any>,data){
+  openModalData (template: TemplateRef<any>, data){
+    this.id = data._id
     this.form.patchValue(data);
-    this.form.disable();
-    this.disableButton = false
+    if(this.user.role !== 'admin') {
+      this.disableButton = false;
+      this.form.disable();
+    }
     this.modalRef = this.modalService.show(template);
   }
 
@@ -77,6 +84,13 @@ export class ServiceComponent implements OnInit {
       data.docs.map(a => {
         this.items.push(a);
       })
+    })
+  }
+
+  delete() {
+    this.rest.alertDelete('services', this.id).then(() => {
+      this.load(false);
+      this.modalRef.hide();
     })
   }
   

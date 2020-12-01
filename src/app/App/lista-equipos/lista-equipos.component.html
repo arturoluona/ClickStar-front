@@ -28,7 +28,9 @@
             </p>
           </div>
           <div class="col-4 text-center">
-              <i (click)="redireccion(data._id)" class="fas shadow fa-file-pdf color-red"></i>
+              <i (click)="redireccion(data._id)" class="fas shadow fa-file-pdf color-red"></i> 
+              &nbsp;&nbsp;&nbsp;
+              <i *ngIf="(user?.role === 'admin')" (click)="delete(data?._id)" class="fas color-red fa-trash"></i>
               <p class="mt-4 text-date">{{data.createdAt | date:'shortDate'}}</p>
           </div>
         </div>

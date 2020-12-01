@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { InventoryService } from './inventory.service';
 import { RestService } from 'src/app/rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { BsModalService, } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-inventory',
@@ -12,6 +12,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class InventoryComponent implements OnInit {
   
+  public user: any;
   public form: FormGroup;
   public items = <any>[];
   public search = '';
@@ -24,8 +25,8 @@ export class InventoryComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private modalService: BsModalService,
-    public inventory: InventoryService,
     private rest: RestService,
+    private cookieService: CookieService,
     
   ) { }
 
@@ -37,9 +38,15 @@ export class InventoryComponent implements OnInit {
       proveedor: ['',],
       description: ['',],
   })
+    this.user =  JSON.parse(this.cookieService.get('user'));
   }
 
   openModal (template: TemplateRef<any>){
+    this.id = null;
+    this.form.reset();
+    this.form.enable(); 
+    this.valorMaximo = 0;
+    this.valueStock = 0;
     this.modalRef = this.modalService.show(template);
   }
 
@@ -51,7 +58,9 @@ export class InventoryComponent implements OnInit {
     const method = (this.valorMaximo) ? 'patch' : 'post'
 
     this.rest[method](`inventory${(method === 'patch') ? `/${this.id}` : ''}`, send).subscribe(() => {
-      this.modalRef.hide();
+      this.modalRef.hide();      
+      this.valorMaximo = 0;
+      this.valueStock = 0;
       this.form.reset();
       this.form.enable();
       this.load(false);
@@ -64,7 +73,6 @@ export class InventoryComponent implements OnInit {
     this.form.disable();
     this.valorMaximo = data.stock;
     this.valueStock =  data.stock;
-    console.log(this.valorMaximo)
     this.modalRef = this.modalService.show(template);
   }
 
@@ -80,6 +88,13 @@ export class InventoryComponent implements OnInit {
       data.docs.map(a => {
         this.items.push(a);
       })
+    })
+  }
+
+  delete() {
+    this.rest.alertDelete('inventory', this.id).then(() => {
+      this.load(false);
+      this.modalRef.hide();
     })
   }
 }

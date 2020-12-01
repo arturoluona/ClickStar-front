@@ -28,6 +28,31 @@ export class RestService {
 
   }
 
+  alertDelete(path, id) {
+    return new Promise((resolve, reject) => {
+      Swal.fire({
+        title: '¿Estas seguro?',
+        text: "Esta acción no se puede revertir!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.delete(`${path}/${id}`).subscribe(() => {
+            Swal.fire(
+              'Eliminado!',
+              '',
+              'success'
+            );
+            resolve(true);
+          })
+        }
+      })
+    })
+  }
+
   clearSession = (redirect = false) => {
     this.cookieService.delete('session', ' / ');
     this.cookieService.delete('user', ' / ');

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CookieService} from 'ngx-cookie-service';
+import { RestService } from 'src/app/rest.service';
 
 @Component({
   selector: 'app-perfil',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilComponent implements OnInit {
 
-  constructor() { }
+  public user: any;
+  public audit = false;
+  constructor(
+    private cookieService: CookieService,
+    private rest: RestService) { }
 
   ngOnInit(): void {
+    this.user =  JSON.parse(this.cookieService.get('user'));
+    console.log(this.user)
+  }
+
+  public logOut() {
+    this.rest.clearSession(true)
+  }
+
+  public redirect(a) {
+    window.open(`http://localhost:3000/pdf/${a}`, '_blank');
   }
 
 }

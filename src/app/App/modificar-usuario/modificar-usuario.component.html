@@ -9,13 +9,19 @@
     <input type="text" class="form-control" [ngModel]="search" (ngModelChange)="load($event)"  aria-label="Example text with button addon" aria-describedby="button-addon1">
   </div>
 
-  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;" (click)="OpenModal(data)">
-
-      <div class="truncate pl-2">
-        <p><i class="fas text-muted fa-user mr-2"></i>{{data?.name}}</p>
-        <p class="text-1"><i class="fas text-muted fa-toolbox mr-2"></i> <span class="color-red"> {{data?.role}}</span></p>
-        <p class="text-1"><i class="fas text-muted fa-file mr-2"></i>{{data?.ci}}</p>
+  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
+    <div class="row align-items-center">
+      <div class="col-10" (click)="OpenModal(data)">
+        <div class="truncate pl-2">
+          <p><i class="fas text-muted fa-user mr-2"></i>{{data?.name}}</p>
+          <p class="text-1"><i class="fas text-muted fa-toolbox mr-2"></i> <span class="color-red"> {{data?.role}}</span></p>
+          <p class="text-1"><i class="fas text-muted fa-file mr-2"></i>{{data?.ci}}</p>
+        </div>
       </div>
+      <div class="col-2" (click)="delete(data?._id)">
+        <i class="fas color-red fa-trash"></i>
+      </div>
+    </div>
 
   </div>
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/rest.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-lista-equipos',
@@ -8,6 +9,7 @@ import { RestService } from 'src/app/rest.service';
 })
 export class ListaEquiposComponent implements OnInit {
 
+  public user: any;
   public items= <any>[];
 
   public typeDevices = [
@@ -21,11 +23,13 @@ export class ListaEquiposComponent implements OnInit {
 
   public search = '';
   constructor(
+    private cookieService: CookieService,
     private rest: RestService
     ) {}
     
 
   ngOnInit(): void {
+    this.user =  JSON.parse(this.cookieService.get('user'));
   }
   
   load(a: any) {
@@ -46,5 +50,11 @@ export class ListaEquiposComponent implements OnInit {
   selectDevices(device) {
     this.selectedDevice = device;
     this.load(false);
+  }
+
+  delete(id) {
+    this.rest.alertDelete(this.selectedDevice.value, id).then(() => {
+      this.load(false);
+    })
   }
 }

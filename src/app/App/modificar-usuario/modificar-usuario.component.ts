@@ -34,5 +34,11 @@ export class ModificarUsuarioComponent implements OnInit {
   OpenModal(data: any){
     this.serviceCliente.openOrder(data)
   }
+  
+  delete(id) {
+    this.rest.alertDelete('users', id).then(() => {
+      this.load(false);
+    })
+  }
 
 }

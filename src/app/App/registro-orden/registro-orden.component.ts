@@ -12,6 +12,7 @@ import { RouterComponent } from './modals/router/router.component';
 import { OtrosComponent } from './modals/otros/otros.component'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-registro-orden',
@@ -35,6 +36,7 @@ export class RegistroOrdenComponent implements OnInit {
     { value: 'deviceOthers', name: 'Otros'}
   ]
   
+  public user: any;
   public status = [
     {value: 'wait', name: 'Espera'},
     {value: 'process', name: 'Proceso'},
@@ -67,7 +69,8 @@ export class RegistroOrdenComponent implements OnInit {
     private rest: RestService,
     private modalService: BsModalService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { 
+    private activatedRoute: ActivatedRoute,
+    private cookieService: CookieService,) { 
        this.options.mode = 'code';
       this.options.modes = ['code', 'text', 'tree', 'view'];
       this.options.statusBar = false;
@@ -83,7 +86,9 @@ export class RegistroOrdenComponent implements OnInit {
       price: [''],   
       status: ['', Validators.required],
     });
+    this.user =  JSON.parse(this.cookieService.get('user'));
 
+    if(this.user.role === 'tecnico' || this.user.role === 'user') this.formOrden.disable();
     this.activatedRoute.queryParams.subscribe(params => {
       this.id = params['id'];
     });
@@ -114,7 +119,7 @@ export class RegistroOrdenComponent implements OnInit {
   }
   singleSearchUser$ = (term) => {
     const q = [
-      `users?`,
+      `users/customers?`,
       `filter=${term}`,
       `&fields=name,email,ci,phone`,
       `&page=1&limit=5`,
@@ -241,6 +246,12 @@ export class RegistroOrdenComponent implements OnInit {
       } else {
         this.router.navigate(['/', 'lista-o'])
       }
+    })
+  }
+  
+  delete() {
+    this.rest.alertDelete('orden', this.id).then(() => {
+      this.router.navigate(['/', 'lista-o'])
     })
   }
 }

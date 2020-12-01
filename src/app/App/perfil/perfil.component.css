@@ -1,40 +1,4 @@
-.sidebar{
-    background-color: rgba(197, 194, 194, 0.33);
-    height: 20vh;
 
-}
-.sidebar h3{
-    text-align: center;
-    position: relative;
-    top: 40px;
-    color: rgba(0, 0, 0, 0.775);
-    padding: 5px;
-}
-.sidebar h5{
-    text-align: center;
-    right: 10px ;
-    padding: 2px;
-    margin: 0;
-    position: relative;
-    top: 30px;
-    color: grey;
-
-}
-#status{
-    color: rgb(45, 247, 45);
-}
-.skere
-{
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
-    padding: 5;
-    position: absolute;
-    top: 35px;
-    left: 10px;
-    margin: 0;
-
-}
 .list{
     padding: 0;
     margin: 0;
@@ -42,7 +6,7 @@
 .list li a{
     text-decoration: none;
     color: rgba(0, 0, 0, 0.775);
-    padding: 20px;
+    padding-left: 0 !important;
     font-weight: bold;
     width: 100%;
 }

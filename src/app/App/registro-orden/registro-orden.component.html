@@ -1,5 +1,12 @@
 <div class="container mb-5 pb-5">
-	<h5 class="mt-3">Registro de Orden <small class=" pl-2 text-muted" *ngIf="id"> #{{dataOrden?.idOrden}}</small></h5>
+	<div class="row align-items-center">
+		<div class="col-10">
+			<h5 class="mt-3">Registro de Orden <small class="text-date pl-2 text-muted" *ngIf="id"> #{{dataOrden?.idOrden}}</small></h5>
+		</div>
+		<div *ngIf="id && (user?.role === 'admin')" (click)="delete()" class="col-2">
+			<i class="fas color-red fa-trash"></i>
+		</div>
+	</div>
 	<hr class="m-0 p-0">
 	<form [formGroup]="formOrden" (submit)="submit()">
 		<label>Cliente</label>	  
@@ -114,7 +121,7 @@
 			  </div>
 		</div>
 
-		<div class="text-center mt-3 col-12">
+		<div *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')" class="text-center mt-3 col-12">
 			<button type="submit" class="btn btn-dark " [disabled]="formOrden.invalid" type="submit">Guardar</button>
 		</div>	
 	</form>
