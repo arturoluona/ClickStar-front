@@ -254,4 +254,8 @@ export class RegistroOrdenComponent implements OnInit {
       this.router.navigate(['/', 'lista-o'])
     })
   }
+  
+  public redirect() {
+    window.open(`http://localhost:3000/pdf/orden/${this.id}`, '_blank');
+  }
 }

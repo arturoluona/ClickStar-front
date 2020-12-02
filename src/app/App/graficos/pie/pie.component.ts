@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 
@@ -24,8 +24,10 @@ export class PieComponent implements OnInit {
       },
     }
   };
-  public pieChartLabels: Label[] = [['Otros'],['Impresora'],['Router'],['CPU'], ['Laptop'], 'Monitor'];
-  public pieChartData: number[] = [150,100,50,300, 500, 100];
+  
+  @Input() pieChartLabels: any;
+  @Input() pieChartData: any;
+
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartColors = [

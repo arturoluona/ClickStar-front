@@ -122,9 +122,10 @@
 		</div>
 
 		<div *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')" class="text-center mt-3 col-12">
-			<button type="submit" class="btn btn-dark " [disabled]="formOrden.invalid" type="submit">Guardar</button>
+			<button type="submit" class="btn btn-dark " [disabled]="formOrden.invalid">Guardar</button>
 		</div>	
 	</form>
+	<button *ngIf="id" type="button" class="btn btn-danger" (click)="redirect()">PDF</button>
 </div>
 
 

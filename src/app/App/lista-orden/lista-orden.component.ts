@@ -30,4 +30,8 @@ export class ListaOrdenComponent implements OnInit {
       })
     })
   }
+  
+  public redireccion() {
+    window.open(`http://localhost:3000/pdf/orden`, '_blank');
+  }
 }

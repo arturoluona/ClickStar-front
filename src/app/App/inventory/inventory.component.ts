@@ -69,8 +69,8 @@ export class InventoryComponent implements OnInit {
 
   openModalData (template: TemplateRef<any>, data){
     this.id = data._id;
-    this.form.patchValue(data);
-    this.form.disable();
+    this.form.patchValue(data); 
+    if(this.user.role !== 'admin') this.form.disable();
     this.valorMaximo = data.stock;
     this.valueStock =  data.stock;
     this.modalRef = this.modalService.show(template);

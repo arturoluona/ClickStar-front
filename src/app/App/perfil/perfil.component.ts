@@ -17,7 +17,6 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.user =  JSON.parse(this.cookieService.get('user'));
-    console.log(this.user)
   }
 
   public logOut() {

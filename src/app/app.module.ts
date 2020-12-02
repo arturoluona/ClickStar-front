@@ -26,7 +26,6 @@ import { ModificarUsuarioComponent } from './App/modificar-usuario/modificar-usu
 import { ServiceComponent } from './App/service/service.component';
 import { ListaClientesComponent } from './App/lista-clientes/lista-clientes.component';
 import { PieComponent } from './App/graficos/pie/pie.component';
-import { BarrasComponent } from './App/graficos/barras/barras.component';
 import { ListaEquiposComponent } from './App/lista-equipos/lista-equipos.component';
 import { InventoryComponent } from './App/inventory/inventory.component';
 import {ClienteComponent} from './App/registro-orden/modals/cliente/cliente.component';
@@ -34,7 +33,9 @@ import { PcComponent } from './App/registro-orden/modals/pc/pc.component';
 import { ImpresoraComponent } from './App/registro-orden/modals/impresora/impresora.component';
 import { MonitorComponent } from './App/registro-orden/modals/monitor/monitor.component';
 import { RouterComponent } from './App/registro-orden/modals/router/router.component';
-import { OtrosComponent } from './App/registro-orden/modals/otros/otros.component'
+import { OtrosComponent } from './App/registro-orden/modals/otros/otros.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 
 
@@ -91,8 +92,7 @@ const rutas: Routes = [
   },  
   {
     path:'service',
-    component: ServiceComponent,
-    canActivate: [AuthGuard]
+    component: ServiceComponent
   },  
   {
     path:'lista-equipos',
@@ -116,7 +116,6 @@ const rutas: Routes = [
     ServiceComponent,
     ListaClientesComponent,
     PieComponent,
-    BarrasComponent,
     ListaEquiposComponent,
     InventoryComponent,
     LoadingBtnDirective,
@@ -140,6 +139,7 @@ const rutas: Routes = [
     BrowserAnimationsModule,
     NgJsonEditorModule,
     NumberPickerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]

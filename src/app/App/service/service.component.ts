@@ -39,7 +39,9 @@ export class ServiceComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    this.user =  JSON.parse(this.cookieService.get('user'));
+    this.rest.checkSession(false, false).then((a) => {      
+      this.user =  JSON.parse(this.cookieService.get('user'));
+    }).catch((e) => this.user = {role: false})
     this.load(false);
     this.form = this.builder.group({
       name: ['', Validators.required],
@@ -80,7 +82,6 @@ export class ServiceComponent implements OnInit {
     this.rest.get(`services?${query}`).subscribe( data => {
       
     this.items = [];
-      console.log(data);
       data.docs.map(a => {
         this.items.push(a);
       })
