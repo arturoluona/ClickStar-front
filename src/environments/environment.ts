@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   daysTokenExpire: 4,
-  api: 'http://localhost:3000'
+  api: 'http://localhost:3001'
 };
 
 /*

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RestService} from '../../rest.service';
+import {RestService} from '../rest.service';
 
 @Component({
   selector: 'app-lista-orden',
@@ -12,14 +12,14 @@ export class ListaOrdenComponent implements OnInit {
   public items = <any>[];
   public search = '';
   constructor(
-    private rest: RestService    
+    private rest: RestService
     ) {}
-    
+
 
   ngOnInit(): void {
     this.load(false)
   }
-  
+
   load(a: any) {
     this.items = []
     const query = (a) ? `filter=${a}&fields=idOrden` : ''
@@ -30,7 +30,7 @@ export class ListaOrdenComponent implements OnInit {
       })
     })
   }
-  
+
   public redireccion() {
     window.open(`http://localhost:3000/pdf/orden`, '_blank');
   }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RestService} from '../../rest.service';
+import {RestService} from '../rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service'
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 

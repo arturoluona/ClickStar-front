@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RestService} from '../../rest.service';
+import {RestService} from '../rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./registrar-usuario.component.css']
 })
 export class RegistrarUsuarioComponent implements OnInit {
-  
+
   public form: FormGroup;
 
   public id: string;
@@ -55,7 +55,7 @@ export class RegistrarUsuarioComponent implements OnInit {
     country: this.form.value.country
   }
   if(method === 'patch') delete  send.password;
-  
+
   this.rest[method](`users${(this.id) ? '/'+this.id : ''}`, send).subscribe((res) => {
       if(res.role === 'user') this.router.navigate(['/', 'lista-c'])
         else this.router.navigate(['/', 'modificar-u'])

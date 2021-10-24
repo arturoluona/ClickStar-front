@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RestService} from '../../../../rest.service';
+import {RestService} from '../../../rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal'
 
@@ -14,7 +14,7 @@ export class ImpresoraComponent implements OnInit {
 
   constructor(
     private builder: FormBuilder,
-    private rest: RestService,    
+    private rest: RestService,
     public bsModalRef: BsModalRef
   ) { }
 
