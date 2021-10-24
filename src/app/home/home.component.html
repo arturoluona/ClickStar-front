@@ -1,0 +1,41 @@
+<body style="background-color: rgb(245, 245, 245); height: 100vh;">
+    <div class="container bg-dark shadow ">
+        <img class="skere" src="../../../assets/imagenes/logo2.png" alt="logo fanart">
+        <hr>
+    </div>
+
+    <div *ngIf="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 ml-5 rounded" style="border: solid 1px ; border-color: rgba(121, 121, 121, 0.583); background-color: white;"> <p class="mt-3 " style="text-align: center;"><i class="fas text-muted fa-user"></i><br>{{customers}}</p> </div>
+                <div class="col-4 ml-4 rounded" style="border: solid 1px ; border-color: rgba(121, 121, 121, 0.583); background-color: white;"> <p class="mt-3 "style="text-align: center;"><i class="fas text-muted fa-tv"></i><br>{{totalDevices}}</p> </div>
+            </div>
+        </div>
+        <br>
+        <div class="ml-2 mr-2 rounded" style="border: solid 1px ; border-color: rgba(121, 121, 121, 0.583); background-color: white;">
+            <h4 class="text-center pt-2">Equipos</h4>
+
+            <app-pie 
+                [pieChartLabels]="deviceLabels"
+                [pieChartData]="deviceCalc">
+            </app-pie>
+        </div>
+        <br>
+        <div class="ml-2 mr-2 rounded" style="border: solid 1px ; border-color: rgba(121, 121, 121, 0.583); background-color: white;">
+            <h4 class="text-center pt-2">Estatus</h4>
+
+            <app-pie 
+                [pieChartLabels]="ordenLabels"
+                [pieChartData]="ordenCalc">
+            </app-pie>
+        </div>
+    </div>
+
+    <div *ngIf="!login" class="container">
+        <h4 class="color-red mt-5 pt-5 text-center">Inicia sesión para usar la app</h4>
+    </div>
+    
+    <br>
+    <br>
+</body>
+    <app-navbar></app-navbar>

@@ -1,0 +1,37 @@
+		  <!-- Formulario Router -->
+          <div class="col-md-8">
+            <div class="form-group">
+                <br>
+                <h3>ROUTER/MODEM</h3>
+              </div>
+              <form  [formGroup]="form" (submit)="submit()">
+              <div class="form-group">
+                  <label>Marca</label>
+                  <input type='text' class='form-control' formControlName="make" maxlength="30" name='rou_marca' placeholder='Marca (*)'>
+              </div>
+              
+              <div class="form-group">
+                  <label>Modelo</label>
+                  <input type='text' class='form-control' formControlName="model" maxlength="30" name='rou_modelo' placeholder='Modelo (*)'>
+              </div>
+              
+              <div class="form-group">
+                  <label>Serial</label>
+                  <input type='text' class='form-control' formControlName="serial" maxlength="30" name='rou_serial' placeholder='Serial(*)'>
+              </div>
+              
+              <div class="form-group">
+                <label>Cargador</label>
+                <input type='text' class='form-control' formControlName="loader"placeholder='Opcional'>
+              </div>
+
+              <div class='form-group'>
+                  <label for='rou_observacion'>Observaciones</label>
+                  <textarea class='form-control' rows='3' formControlName="description" maxlength="100" name='rou_observacion' placeholder="Observaciones realizadas"></textarea>
+              </div>
+              <div class="d-flex justify-content-between mt-3 pb-3">
+                <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid" type="submit">Save changes</button>
+            </div>
+        </form>
+                </div>

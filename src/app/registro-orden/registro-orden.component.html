@@ -1,0 +1,132 @@
+<div class="container mb-5 pb-5">
+	<div class="row align-items-center">
+		<div class="col-10">
+			<h5 class="mt-3">Registro de Orden <small class="text-date pl-2 text-muted" *ngIf="id"> #{{dataOrden?.idOrden}}</small></h5>
+		</div>
+		<div *ngIf="id && (user?.role === 'admin')" (click)="delete()" class="col-2">
+			<i class="fas color-red fa-trash"></i>
+		</div>
+	</div>
+	<hr class="m-0 p-0">
+	<form [formGroup]="formOrden" (submit)="submit()">
+		<label>Cliente</label>	  
+		<ng-select #selectProductRef [items]="results$ | async"
+					formControlName="customer"
+					bindLabel="name"
+					(close)="selectProductRef.blur(); selectProductRef.focus()"
+					[addTag]="true"
+					[multiple]="false"
+					[disabled]="true"
+					[hideSelected]="true"
+					[trackByFn]="trackByFn"
+					[minTermLength]="3"
+					[required]="true"
+					(change)="selectUser($event)"
+					[loading]="userLoading"
+					[typeToSearchText]="'Buscar Cliente'"
+					[typeahead]="userInput$">
+			<ng-template ng-label-tmp let-item="item">
+			{{item?.name}}<small class="pl-2"><i>{{item?.ci}}</i></small>
+			</ng-template>
+			<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+			
+				<div class="p-1">{{item?.name}} &nbsp;&nbsp;&nbsp;<small><i>{{item?.ci}}</i></small></div>
+				
+			</ng-template>
+		</ng-select>
+
+		<label>Técnico</label>
+		<ng-select  [items]="tecnicos$ | async"
+					bindLabel="name"
+					autofocus
+                   placeholder="Selecciona un técnico"
+				   formControlName="tecnico">
+		</ng-select>
+
+		<label>Estatus</label>
+		<ng-select [items]="status"
+				   bindLabel="name"
+				   bindValue="value"
+                   placeholder="Selecciona un estatus"
+				   formControlName="status">
+		</ng-select>
+
+		<div>
+			<label>Equipos</label>
+			<ng-select [items]="typeDevices"
+					   bindLabel="name"
+					   [disabled]="id"
+					   placeholder="Selecciona un equipo"
+					   [(ngModel)]="selectedDevice"
+					   [ngModelOptions]="{ standalone: true }">
+			</ng-select>
+			
+			<ng-select *ngIf="selectedDevice && !id" #selectDeviceRef [items]="device$ | async"
+						formControlName="device"
+						bindLabel="name"
+						class="mt-4"
+						(close)="selectDeviceRef.blur(); selectDeviceRef.focus()"
+						[addTag]="true"
+						[multiple]="false"
+						[disabled]="true"
+						[hideSelected]="true"
+						[trackByFn]="trackByFn"
+						[minTermLength]="3"
+						[required]="true"
+						(change)="selectDevices($event)"
+						[loading]="deviceLoading"
+						[typeToSearchText]="'Buscar Equipo'"
+						[typeahead]="deviceInput$">
+				<ng-template ng-label-tmp let-item="item">
+				{{item?.model}}<small class="pl-2"><i>{{item?.serial}}</i></small>
+				</ng-template>
+				<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+				
+					<div class="p-1">{{item?.model}} &nbsp;&nbsp;&nbsp;<small><i>{{item?.serial}}</i></small></div>
+					
+				</ng-template>
+			</ng-select>
+		</div>
+		<!-- Select para traer los formularios -->
+
+		<div class='form-group'>
+			<label >Precio</label>
+			<input type='number' class='form-control' formControlName="price">
+		</div>
+
+		<div class='form-group'>
+			<label for='otro_observacion'>Observaciones</label>
+			<textarea class='form-control' rows='3' formControlName="description" id="otro_observacion" name='otro_observacion' placeholder="Observaciones realizadas"></textarea>
+		</div>
+
+		<div *ngIf="id">
+			<json-editor [options]="options" formControlName="deviceJson"></json-editor>
+			<!-- <div class="card bg-device">
+				<div class="card-body">
+				  <p>Equipo</p>
+					{{dataOrden?.device | json}}
+				</div>
+			</div> -->
+			<p class="mt-2">Historial Estatus</p>
+			<div class="card" style="width: 18rem;">
+				<ul class="list-group list-group-flush">
+				  <li *ngFor="let dat of dataOrden?.historic" class="list-group-item">
+					  <div class="row">
+						  <div class="col-6">{{dat?.status}}</div>
+						  <div class="col-6">{{dat?.date | date:'mediumDate'}}</div>
+					  </div> 
+				  </li>
+				  
+				</ul>
+			  </div>
+		</div>
+
+		<div *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')" class="text-center mt-3 col-12">
+			<button type="submit" class="btn btn-dark " [disabled]="formOrden.invalid">Guardar</button>
+		</div>	
+	</form>
+	<button *ngIf="id" type="button" class="btn btn-danger" (click)="redirect()">PDF</button>
+</div>
+
+
+<app-navbar></app-navbar>

@@ -1,0 +1,22 @@
+
+<body class="back">
+<div class="contenedor">
+    <img class="skere" src="../../../assets/imagenes/imagen.jpg" alt="logo fanart"> 
+    <h1 class="h1">ClickStar</h1>
+    <form [formGroup]="form" (submit)="login()">
+        <label >Usuario</label>
+        <input class="input" id="user" formControlName="email" type="text">
+
+        <label >Contraseña</label>
+        <input class="input" id="password" formControlName="password" type="password">
+
+        <button ngxLoading [disabled]="form.invalid"
+        [textInitial]="'Iniciar Sesión'"
+        [textLoading]="'Cargando'"
+        [loadingFlag]="loading"
+        type="submit" class="btn btn-secondary" style="width: 60%;
+        margin-left: 20%; " ></button>
+    </form>
+
+</div>
+</body>

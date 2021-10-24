@@ -1,0 +1,60 @@
+
+  <div class="container">
+    <div class="row align-items-center bg-light pt-2 pb-2 ">
+      <div class="col-2">
+        <img class="rounded-circle" width="50" src="../../../assets/imagenes/imagen.jpg" alt="logo fanart">
+      </div>
+      <div class="col-10 text-center">
+        <h5 class="text-right">{{user?.name}}</h5>
+        <p class="text-right mb-0 text-muted text-date">(
+          {{(user?.role === 'admin') ? 'Administrador' : ''}}
+          {{(user?.role === 'office') ? 'Oficina' : ''}}
+          {{(user?.role === 'tecnico') ? 'Técnico' : ''}}
+        )</p>
+      </div>
+    </div>
+  </div>
+    
+    <div class="list">
+      <ul class="list-unstyled components">
+        <li *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')">
+          <a [routerLink]="['/registro-o']"><i class="fas fa-id-badge p-4"></i>Registrar Orden</a>
+        </li>
+        <li>
+          <a [routerLink]="['/lista-o']"><i class="fas fa-clipboard p-4"></i>Lista de Ordenes</a>
+        </li>
+        <li  *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')">
+          <a [routerLink]="['/lista-c']"><i class="fas fa-users p-4"></i>Lista de Clientes</a>
+        </li>
+        <li *ngIf="user?.role === 'admin'">
+          <a [routerLink]="['/modificar-u']"><i class="fas fa-user-cog p-4"></i>Listar Empleados</a>
+        </li>
+        <li>
+          <a [routerLink]="['/lista-equipos']"><i class="fas fa-tv p-4"></i>Lista de Equipos</a>
+        </li>
+        <li *ngIf="user?.role === 'admin'">
+          <a [routerLink]="['/registrar-u']" ><i class="fas fa-user-plus p-4"></i>Registrar Empleado</a>
+        </li>
+        <li>
+          <a [routerLink]="['/inventario']"><i class="fas fa-luggage-cart p-4"></i>Inventario</a>
+        </li>
+        <li *ngIf="user?.role === 'admin'">
+          <a class="pb-0" (click)="audit = !audit"><i class="fas fa-file-pdf pb-0 pt-4 pl-4 pr-4"></i>Auditorias</a>
+        </li>
+          <li class="text-1 ml-5 pt-2 pl-4" *ngIf="audit">
+            <a class="font-weight-normal" (click)="redirect('auditoriaMethods')">Consultas</a>
+          </li>
+          <li class="text-1 ml-5 pt-2 pl-4" *ngIf="audit">
+            <a class="font-weight-normal" (click)="redirect('auditoriaGlobal')">Global</a>
+          </li>
+          <li class="text-1 ml-5 pt-2 pl-4" *ngIf="audit">
+            <a class="font-weight-normal" (click)="redirect('auditoriaInv')">Inventario</a>
+          </li>
+        <li>
+          <a (click)="logOut()" ><i class="fas fa-sign-out-alt p-4"></i>Salir</a>
+        </li>
+      </ul>
+  </div>
+<br>
+<br>
+  <app-navbar></app-navbar>

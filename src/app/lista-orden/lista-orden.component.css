@@ -1,0 +1,85 @@
+#fecha{
+    top: 0;
+    right: 0;
+    position: absolute;
+    
+}
+#orden{
+    border-radius: 5px;
+background-color: white;
+
+}
+#orden label{
+
+    height:95px ; 
+    width: 70px; 
+    background-color: rgba(20, 50, 220, 0.309);
+     border-radius: 5px;
+      color: rgb(255, 255, 255);
+    text-align: center;
+    top: 20px;
+      
+}
+.process{
+    background-color: #3498db;
+  border-radius: 1rem;
+  color: white;
+  width: 20px;
+  height: 20px;
+  
+  margin-bottom: .25rem;
+    margin-left: 70% !important;
+  border: solid 2px #ffffff82;
+}
+.wait{
+    background-color: #f1c40f;
+  
+    margin-bottom: .25rem;
+  border-radius: 1rem;
+  color: white;
+  width: 20px;
+  height: 20px;
+  
+    margin-left: 70% !important;
+  border: solid 2px #ffffff82;
+}
+.finalize{
+ background-color: #75eaff;
+  
+    margin-bottom: .25rem;
+  border-radius: 1rem;
+  color: white;
+  width: 20px;
+  height: 20px;
+  
+    margin-left: 70% !important;
+  border: solid 2px #ffffff82;
+}
+.deliver{
+    background-color:rgba(44, 164, 46, 0.84);
+  
+    margin-bottom: .25rem;
+  border-radius: 1rem;
+  color: white;
+  width: 20px;
+  height: 20px;
+  
+    margin-left: 70% !important;
+  border: solid 2px #ffffff82;
+}
+.cancelado{
+  background-color:#ff7675;
+
+  margin-bottom: .25rem;
+border-radius: 1rem;
+color: white;
+width: 20px;
+height: 20px;
+
+  margin-left: 70% !important;
+border: solid 2px #ffffff82;
+}
+
+.list-color {
+    background-color: white;
+}

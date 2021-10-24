@@ -1,0 +1,45 @@
+<div class="container mt-4 mb-5 pb-5">
+	<h4>Registro de Empleados</h4>
+	<hr class="mb-0">
+	<form [formGroup]="form" (submit)="submit()">
+
+		<label>Nombre Completo</label>
+		<input type="text" class="form-control" formControlName="name" >
+		
+		<label>Email</label>
+		<input type="text" class="form-control" formControlName="email" >
+		
+		<label>Cedula de identidad</label>
+		<input type="text" class="form-control" formControlName="ci" >
+
+		<div *ngIf="!(id)">
+
+			<label>Contraseña</label>
+			<input type="text" class="form-control" formControlName="password" >		
+
+		</div>
+		
+		<div *ngIf="!(item?.role==='user')">
+			<label>Rol</label>
+			<select class="form-control" formControlName="role">
+				<option disabled value="">Seleccione</option>
+				<option value="office">Oficina</option>
+				<option value="tecnico">Técnico</option>
+			</select>
+		</div>
+		
+		<label>phone</label>
+		<input type="text" class="form-control" formControlName="phone" >
+		
+		<label>Ciudad</label>
+		<input type="text" class="form-control" formControlName="city" >
+		
+		<label>Direccion</label>
+		<input type="text" class="form-control" formControlName="country" >
+		
+		<div class="text-center mt-3 col-12">
+			<button type="submit" class="btn btn-dark " [disabled]="form.invalid" type="submit">Guardar</button>
+		</div>	
+	</form>
+</div>
+<app-navbar></app-navbar>

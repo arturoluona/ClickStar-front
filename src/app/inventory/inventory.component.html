@@ -1,0 +1,79 @@
+
+<div class="container" style="background-color: rgb(245, 245, 245); height: 100vh;">
+    <br>
+    <h3 style="text-align: center;"><i class="fas fa-dolly-flatbed p-1"></i>Inventario</h3>
+    <hr>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
+      </div>
+      <input type="text"[ngModel]="search" (ngModelChange)="load($event)" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+    </div>
+  
+    <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
+      <div class="row" (click)="openModalData(template,data)">
+  
+        <div class="col-7 truncate ">
+          <p><i class="fas text-muted fa-hashtag mr-2"></i>{{data?.name}}</p>
+          <p class="mb-0"><i class="fas text-muted fa-boxes pr-1"></i>Stock: {{data?.stock}}</p>
+        </div>
+        <div class="col-5 truncate">
+          <p class="mt-4 text-1"><i class="fas text-muted fa-tag mr-2"></i>{{data?.price}} Cop</p>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <ng-template #template>
+    <div class="modal-content">
+      <form  [formGroup]="form" (submit)="submit()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
+            <button *ngIf="id && (user?.role === 'admin')" (click)="delete()"  type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i class="fas color-red fa-trash"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+  
+              <div class="Container">
+                  <div class="from-group">
+                      <label for=""> Producto</label>
+                    <input type="text" class="form-control border-muted"  formControlName="name" style="width: 100%; height: 40px;" value="" placeholder=" Ejem..(Memoria Ram ddr3 laptop)" > <br>
+                    
+                    <label>Stock</label>
+                    
+                      <!--  -->
+                    <ng-number-picker
+                      (valueChange)="cambioStock($event)"
+                      [(value)] = "valueStock" 
+                      [min]="0"
+                      [max]="(!valorMaximo || (user?.role==='admin')) ? '150' : valorMaximo"
+                    ></ng-number-picker>
+
+                  <label class="mt-4">Precio Servicio</label>
+                    <input type="number" class="form-control" formControlName="price" style="width: 100%; height: 40px;"  value="" placeholder=" Ejem..(20.000)" >
+
+                    <label class="mt-4"> Proveedor</label>
+                    <input type="text" class="form-control border-muted"  formControlName="proveedor" style="width: 100%; height: 40px;" value="" placeholder=" Ejem..(Empresa)" > <br>
+
+                    <label class="mt-4">Observacion:</label>
+                    <textarea class='form-control' formControlName="description"></textarea>
+                  </div>
+                </div>
+  
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid" type="submit">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <button *ngIf="user?.role === 'admin'" type="button" class="btn btn-dark btn-1" (click)="openModal(template)" id="exampleModal"><i class="fas fa-plus"></i></button>
+
+
+<app-navbar></app-navbar>

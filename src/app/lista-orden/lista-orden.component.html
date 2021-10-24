@@ -1,0 +1,44 @@
+<div class="container mb-5 pb-5" style="background-color: rgb(245, 245, 245); height: 100vh;">
+    <br>
+    <div class="row">
+      <div class="col-10">
+        <h3 style="text-align: center;">Lista de Ordenes</h3>
+      </div>
+      <div class="col-2 text-right">
+        <i (click)="redireccion()" class="fas shadow fa-file-pdf color-red"></i> 
+      </div>
+    </div>
+  
+    <hr>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fas fa-search"></i></button>
+      </div>
+      <input type="text" class="form-control" [ngModel]="search" (ngModelChange)="load($event)" placeholder="Id de orden" aria-describedby="button-addon1">
+    </div>
+  <br>
+
+  <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded">
+    <div class="row" [routerLink]="['/registro-o']" [queryParams]="{id: data?._id}">
+      <div class="col-8">
+        <p class="mb-0" > <i class="fas text-muted fa-hashtag"></i> &nbsp; {{data?.idOrden}} </p>
+        <p class="mb-0 mt-1 truncate text-1">
+          <i class="fas fa-dollar-sign text-muted"></i> &nbsp; {{data?.price}} </p>
+      </div>
+      <div class="col-4 text-right">
+        <div [ngClass]="{
+          'process': (data?.status==='process'), 
+          'wait': (data?.status==='wait'),
+          'deliver': (data?.status==='delivered'),
+          'finalize': (data?.status==='completed'),
+          'cancelado': (data?.status==='cancelado')
+        }" >
+        </div>
+        <span class="text-muted text-date">{{data?.createdAt | date:'mediumDate'}}</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+<app-navbar></app-navbar>

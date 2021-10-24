@@ -1,3 +1,6 @@
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~jsoneditor/dist/jsoneditor.min.css";
 .truncate {
     white-space: nowrap;
     overflow: hidden;
@@ -17,3 +20,19 @@
 .text-dat{
     font-size: 0.8em;
 }
+
+.color-red{
+    color: #f74747;
+}
+
+.custom-card-style {
+    background-color: white;
+    padding: .5rem 1rem;
+    font-weight: 600;
+    font-size: .9rem;
+    letter-spacing: .6px;
+    border-left: solid 1px #e9ecef;
+    border-right: solid 1px #e9ecef;
+    box-shadow: 0px 0px 10px #e8e8e8b8;
+    margin-top: 0 !important;
+  }
