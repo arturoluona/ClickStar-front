@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/rest.service';
 import {CookieService} from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lista-equipos',
@@ -26,12 +27,12 @@ export class ListaEquiposComponent implements OnInit {
     private cookieService: CookieService,
     private rest: RestService
     ) {}
-    
+
 
   ngOnInit(): void {
     this.user =  JSON.parse(this.cookieService.get('user'));
   }
-  
+
   load(a: any) {
     this.items = []
     const query = (a) ? `filter=${a}&fields=make,model,serial` : '';
@@ -42,9 +43,9 @@ export class ListaEquiposComponent implements OnInit {
     })
   }
 
-  
+
   redireccion(id) {
-    window.open(`http://localhost:3000/pdf/${this.selectedDevice.value}/${id}`, '_blank');
+    window.open(`${environment.api}/pdf/${this.selectedDevice.value}/${id}`, '_blank');
   }
 
   selectDevices(device) {
