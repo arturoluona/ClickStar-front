@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
 import { RestService } from 'src/app/rest.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -24,7 +25,7 @@ export class PerfilComponent implements OnInit {
   }
 
   public redirect(a) {
-    window.open(`http://localhost:3000/pdf/${a}`, '_blank');
+    window.open(`${environment.api}/pdf/${a}`, '_blank');
   }
 
 }

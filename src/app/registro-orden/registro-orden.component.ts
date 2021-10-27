@@ -13,6 +13,7 @@ import { OtrosComponent } from './modals/otros/otros.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import {CookieService} from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-registro-orden',
@@ -256,6 +257,6 @@ export class RegistroOrdenComponent implements OnInit {
   }
 
   public redirect() {
-    window.open(`http://localhost:3000/pdf/orden/${this.id}`, '_blank');
+    window.open(`${environment.api}/pdf/orden/${this.id}`, '_blank');
   }
 }

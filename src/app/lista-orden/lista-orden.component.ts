@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import { environment } from 'src/environments/environment';
 import {RestService} from '../rest.service';
 
 @Component({
@@ -32,6 +33,6 @@ export class ListaOrdenComponent implements OnInit {
   }
 
   public redireccion() {
-    window.open(`http://localhost:3000/pdf/orden`, '_blank');
+    window.open(`${environment.api}/pdf/orden`, '_blank');
   }
 }

@@ -9,10 +9,10 @@
       </div>
       <input type="text"[ngModel]="search" (ngModelChange)="load($event)" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
     </div>
-  
+
     <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
       <div class="row" (click)="openModalData(template,data)">
-  
+
         <div class="col-7 truncate ">
           <p><i class="fas text-muted fa-hashtag mr-2"></i>{{data?.name}}</p>
           <p class="mb-0"><i class="fas text-muted fa-boxes pr-1"></i>Stock: {{data?.stock}}</p>
@@ -21,7 +21,7 @@
           <p class="mt-4 text-1"><i class="fas text-muted fa-tag mr-2"></i>{{data?.price}} Cop</p>
         </div>
       </div>
-  
+
     </div>
   </div>
 
@@ -36,23 +36,23 @@
             </button>
           </div>
           <div class="modal-body">
-  
+
               <div class="Container">
                   <div class="from-group">
                       <label for=""> Producto</label>
                     <input type="text" class="form-control border-muted"  formControlName="name" style="width: 100%; height: 40px;" value="" placeholder=" Ejem..(Memoria Ram ddr3 laptop)" > <br>
-                    
+
                     <label>Stock</label>
-                    
+
                       <!--  -->
                     <ng-number-picker
                       (valueChange)="cambioStock($event)"
-                      [(value)] = "valueStock" 
+                      [(value)] = "valueStock"
                       [min]="0"
                       [max]="(!valorMaximo || (user?.role==='admin')) ? '150' : valorMaximo"
                     ></ng-number-picker>
 
-                  <label class="mt-4">Precio Servicio</label>
+                  <label class="mt-4">Precio</label>
                     <input type="number" class="form-control" formControlName="price" style="width: 100%; height: 40px;"  value="" placeholder=" Ejem..(20.000)" >
 
                     <label class="mt-4"> Proveedor</label>
@@ -62,7 +62,7 @@
                     <textarea class='form-control' formControlName="description"></textarea>
                   </div>
                 </div>
-  
+
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
