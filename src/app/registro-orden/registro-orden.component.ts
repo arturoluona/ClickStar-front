@@ -224,7 +224,7 @@ export class RegistroOrdenComponent implements OnInit {
         price: data.price,
         status: data.status
       });
-      console.log(this.formOrden);
+      console.log(this.dataOrden);
     });
   }
 
@@ -258,5 +258,19 @@ export class RegistroOrdenComponent implements OnInit {
 
   public redirect() {
     window.open(`${environment.api}/pdf/orden/${this.id}`, '_blank');
+  }
+
+  openModalEditDevice = () => {
+    let component: any;
+    if (this.dataOrden?.typeDevice?.value === 'devicePc') { component = PcComponent; }
+    if (this.dataOrden?.typeDevice?.value === 'devicePrinter') { component = ImpresoraComponent; }
+    if (this.dataOrden?.typeDevice?.value === 'deviceRouter') { component = RouterComponent; }
+    if (this.dataOrden?.typeDevice?.value === 'deviceMonitor') { component = MonitorComponent; }
+    if (this.dataOrden?.typeDevice?.value === 'deviceOthers') { component = OtrosComponent; }
+    if (this.dataOrden?._id) {
+      const initialState = { initData: this.dataOrden?.device };
+      this.bsModalRef = this.modalService.show(component, Object.assign({initialState})
+      );
+    }
   }
 }

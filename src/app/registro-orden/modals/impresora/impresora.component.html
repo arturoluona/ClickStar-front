@@ -12,12 +12,12 @@
 <div class="form-group">
     <label>Modelo</label>
     <input type='text' class='form-control' maxlength="30" id='imp_modelo' formControlName="model" placeholder='Modelo (*)' name='imp_modelo'>
-</div>  
+</div>
 
 <div class="form-group">
     <label>Serial</label>
     <input type='text' class='form-control' maxlength="30" id='imp_serial' formControlName="serial" placeholder='Serial (*)' name='imp_serial'>
-</div> 
+</div>
 
 <div class="form-group">
     <label>Cabezal:</label>
@@ -25,7 +25,7 @@
 </div>
 
 <label>Tintas:</label>
-<tag-input formControlName="tinta" secondaryPlaceholder="Añade las tintas" placeholder="Añade las tintas"></tag-input>
+<tag-input formControlName="tinta" [disable]="(initData)" secondaryPlaceholder="Añade las tintas" placeholder="Añade las tintas"></tag-input>
 
 <div class='form-group'>
     <label>Observacion:</label>
@@ -33,7 +33,7 @@
 </div>
 <div class="d-flex justify-content-between mt-3 pb-3">
   <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid" type="submit">Save changes</button>
+  <button type="submit" class="btn btn-primary" *ngIf="!initData" [disabled]="form.invalid" >Save changes</button>
 </div>
 </form>
 </div>

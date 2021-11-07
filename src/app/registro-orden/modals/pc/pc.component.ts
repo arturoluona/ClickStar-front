@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../../rest.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal'
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-pc',
@@ -13,10 +13,11 @@ export class PcComponent implements OnInit {
   public ram: FormGroup;
   public hdd: FormGroup;
   public pc: FormGroup;
+  public initData: any;
 
-  public ramList = <any>[];
-  public hddList = <any>[];
-  public dataDevice = <any>{};
+  public ramList = [] as any;
+  public hddList = [] as any;
+  public dataDevice = {} as any;
 
   constructor(
     private builder: FormBuilder,
@@ -35,9 +36,16 @@ export class PcComponent implements OnInit {
       serial: ['', Validators.required],
     });
     this.formPc();
-   }
+  }
 
   ngOnInit(): void {
+    if (this.initData) {
+      this.pc.patchValue(this.initData?.label);
+      Object.keys(this.pc.controls).forEach(ctrl => this.pc.controls[ctrl].disable());
+      Object.keys(this.ram.controls).forEach(ctrl => this.ram.controls[ctrl].disable());
+      Object.keys(this.hdd.controls).forEach(ctrl => this.hdd.controls[ctrl].disable());
+      console.log('pc', this.initData);
+    }
   }
 
   public formPc() {
@@ -86,16 +94,16 @@ export class PcComponent implements OnInit {
       loader: this.pc.value.loader,
       battery: this.pc.value.battery,
       description: this.pc.value.description
-    }
+    };
     this.rest.post('devicePc', send).subscribe(() => {
-      this.close()
-    })
+      this.close();
+    });
   }
 
-  close = () => this.bsModalRef.hide()
+  close = () => this.bsModalRef.hide();
 
   cb = (e) => {
-    this.close()
+    this.close();
   }
 
 }

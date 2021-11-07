@@ -11,6 +11,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal'
 export class RouterComponent implements OnInit {
 
   public form: FormGroup;
+  public initData: any;
 
   constructor(
     private builder: FormBuilder,
@@ -26,6 +27,12 @@ export class RouterComponent implements OnInit {
       loader: ['',],
       description: ['',],
     })
+
+    if (this.initData) {
+      this.form.patchValue(this.initData?.label);
+      Object.keys(this.form.controls).forEach(ctrl => this.form.controls[ctrl].disable());
+      console.log(this.initData);
+    }
   }
   submit(){
     const send = {

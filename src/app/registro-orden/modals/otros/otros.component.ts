@@ -11,6 +11,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal'
 export class OtrosComponent implements OnInit {
 
   public form: FormGroup;
+  public initData: any;
 
   constructor(
     private builder: FormBuilder,
@@ -24,8 +25,14 @@ export class OtrosComponent implements OnInit {
       make: ['', Validators.required],
       model: ['', Validators.required],
       serial: ['', Validators.required],
-      description: ['',],
+      description: ['']
     })
+
+    if (this.initData) {
+      this.form.patchValue(this.initData?.label);
+      Object.keys(this.form.controls).forEach(ctrl => this.form.controls[ctrl].disable());
+      console.log(this.initData);
+    }
   }
   submit(){
     this.rest.post('deviceOthers', this.form.value).subscribe(() => {
