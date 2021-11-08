@@ -1,11 +1,14 @@
 <div class="container mb-5 pb-5" style="background-color: rgb(245, 245, 245); height: 100vh;">
     <br>
-    <div class="row">
-      <div class="col-10">
-        <h3 style="text-align: center;">Lista de Ordenes</h3>
-      </div>
-      <div class="col-2 text-right">
-        <i (click)="redireccion()" class="fas shadow fa-file-pdf color-red"></i>
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h3>Lista de Ordenes</h3>
+      <div class="d-flex align-items-center">
+        <div *ngIf="user?.role === 'admin'" (click)="isDeleted = !isDeleted;deletedLoad();">
+          <i *ngIf="!isDeleted" class="fas color-red fa-trash"></i>
+          <i *ngIf="isDeleted" class="fas text-primary fa-redo-alt"></i>
+        </div>
+        <i (click)="redireccion()" class="fas ml-4 fa-file-pdf color-red"></i>
       </div>
     </div>
 
@@ -19,8 +22,10 @@
   <br>
 
   <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded">
-    <div class="row align-items-center" [routerLink]="['/registro-o']" [queryParams]="{id: data?._id}">
-      <div class="col-8">
+    <div class="row align-items-center">
+      <div class="col-8"
+           [routerLink]="isDeleted ? [] : ['/registro-o']"
+           [queryParams]="isDeleted ? {} : {id: data?._id}">
         <p class="mb-0" > <i class="fas text-muted fa-hashtag"></i> &nbsp; {{data?.idOrden}} </p>
         <p class="m-0">
           <i class="fas fa-tablet-alt text-muted"></i> &nbsp;
@@ -31,7 +36,7 @@
         </p>
       </div>
       <div class="col-4 text-right">
-        <div [ngClass]="{
+        <div *ngIf="!isDeleted" [ngClass]="{
           'process': (data?.status==='process'),
           'wait': (data?.status==='wait'),
           'deliver': (data?.status==='delivered'),
@@ -39,6 +44,7 @@
           'cancelado': (data?.status==='cancelado')
         }" >
         </div>
+        <p><i *ngIf="isDeleted" (click)="restored(data?._id)" class="fas text-primary fa-redo-alt"></i></p>
         <span class="text-muted text-date">{{data?.createdAt | date:'mediumDate'}}</span>
       </div>
     </div>

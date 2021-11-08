@@ -36,8 +36,7 @@ import { RouterComponent } from './registro-orden/modals/router/router.component
 import { OtrosComponent } from './registro-orden/modals/otros/otros.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-
+import { ListTrashUsersComponent } from './list-trash-users/list-trash-users.component';
 
 const rutas: Routes = [
   {
@@ -85,6 +84,11 @@ const rutas: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'lista-papelera-usuarios',
+    component: ListTrashUsersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'registrar-u',
     component: RegistrarUsuarioComponent,
     canActivate: [AuthGuard]
@@ -122,7 +126,8 @@ const rutas: Routes = [
     ImpresoraComponent,
     MonitorComponent,
     RouterComponent,
-    OtrosComponent
+    OtrosComponent,
+    ListTrashUsersComponent
   ],
   imports: [
     BrowserModule, ChartsModule,
