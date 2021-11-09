@@ -14,6 +14,8 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
 import {NumberPickerModule} from 'ng-number-picker';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -34,7 +36,6 @@ import { ImpresoraComponent } from './registro-orden/modals/impresora/impresora.
 import { MonitorComponent } from './registro-orden/modals/monitor/monitor.component';
 import { RouterComponent } from './registro-orden/modals/router/router.component';
 import { OtrosComponent } from './registro-orden/modals/otros/otros.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ListTrashUsersComponent } from './list-trash-users/list-trash-users.component';
 
@@ -141,6 +142,7 @@ const rutas: Routes = [
     BrowserAnimationsModule,
     NgJsonEditorModule,
     NumberPickerModule,
+    NgxDropzoneModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [CookieService, AuthGuard],
