@@ -17,6 +17,7 @@ import {NumberPickerModule} from 'ng-number-picker';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';

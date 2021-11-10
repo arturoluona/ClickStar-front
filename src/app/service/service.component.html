@@ -1,6 +1,6 @@
 <body class="container mb-5 pb-5" style="background-color: rgb(245, 245, 245)">   <br>
     <div [ngClass]="{'d-flex justify-content-between align-items-center': user?.role === 'admin'}">
-      <h2 [ngClass]="{'text-center': user?.role !== 'admin'}">Services</h2>
+      <h2 [ngClass]="{'text-center': user?.role !== 'admin'}">Servicios</h2>
       <div *ngIf="user?.role === 'admin'" (click)="isDeleted = !isDeleted;deletedLoad();">
         <i *ngIf="!isDeleted" class="fas color-red fa-trash"></i>
         <i *ngIf="isDeleted" class="fas text-primary fa-redo-alt"></i>

@@ -61,7 +61,7 @@ export class RestService {
     }
   };
 
-  parseHeader = (custom) => {
+  parseHeader = (custom = null as any) => {
     const token = this.cookieService.get('session');
     let header = {
       Accept: 'application/json',
@@ -137,6 +137,7 @@ export class RestService {
             'Si persiste el problema contacta a arturoluna879@gmail.com',
             'error'
           )
+          break;
         case 400:
           Swal.fire(
             'Error',

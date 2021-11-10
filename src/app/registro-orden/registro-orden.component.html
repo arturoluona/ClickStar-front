@@ -118,15 +118,17 @@
 				<ul class="list-group list-group-flush">
 				  <li *ngFor="let dat of dataOrden?.historic" class="list-group-item">
 					  <div class="row">
-						  <div class="col-6">{{dat?.status}}</div>
+						  <div class="col-6" *ngIf="dat?.status === 'wait'">Espera</div>
+              <div class="col-6" *ngIf="dat?.status === 'process'">Proceso</div>
+              <div class="col-6" *ngIf="dat?.status === 'completed'">Completado</div>
+              <div class="col-6" *ngIf="dat?.status === 'delivered'">Entregado</div>
+              <div class="col-6" *ngIf="dat?.status === 'cancelado'">Cancelado</div>
 						  <div class="col-6">{{dat?.date | date:'mediumDate'}}</div>
 					  </div>
 				  </li>
-
 				</ul>
 			  </div>
 		</div>
-
 		<div *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')" class="text-center mt-3 col-12">
 			<button type="submit" class="btn btn-dark " [disabled]="formOrden.invalid">Guardar</button>
 		</div>
@@ -134,8 +136,6 @@
   <div class="w-100 text-center mt-2">
     <button *ngIf="id" type="button" class="btn btn-danger" (click)="redirect()">PDF</button>
   </div>
-
 </div>
-
 
 <app-navbar></app-navbar>
