@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
 import {NumberPickerModule} from 'ng-number-picker';
 
+
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
