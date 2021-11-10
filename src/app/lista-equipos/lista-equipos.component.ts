@@ -12,6 +12,7 @@ export class ListaEquiposComponent implements OnInit {
 
   public user: any;
   public items= <any>[];
+  isDeleted = false;
 
   public typeDevices = [
     { value: 'devicePc', name: 'PC'},
@@ -34,15 +35,17 @@ export class ListaEquiposComponent implements OnInit {
   }
 
   load(a: any) {
-    this.items = []
-    const query = (a) ? `filter=${a}&fields=make,model,serial` : '';
-    this.rest.get(`${this.selectedDevice.value}?${query}`).subscribe( data => {
-      data.docs.map(a => {
-        this.items.push(a);
-      })
-    })
+    if (this.isDeleted) { this.deletedLoad(a); }
+    else {
+      this.items = [];
+      const query = (a) ? `filter=${a}&fields=make,model,serial` : '';
+      this.rest.get(`${this.selectedDevice.value}?${query}`).subscribe( data => {
+        data.docs.map(a => {
+          this.items.push(a);
+        });
+      });
+    }
   }
-
 
   redireccion(id) {
     window.open(`${environment.api}/pdf/${this.selectedDevice.value}/${id}`, '_blank');
@@ -57,5 +60,24 @@ export class ListaEquiposComponent implements OnInit {
     this.rest.alertDelete(this.selectedDevice.value, id).then(() => {
       this.load(false);
     })
+  }
+
+  deletedLoad = (a = '') => {
+    if (this.user.role === 'admin') {
+      if (this.isDeleted) {
+        const query = (a) ? `filter=${a}&fields=make,model,serial` : '';
+        this.rest.get(`${this.selectedDevice.value}/deletedAll?${query}`).subscribe( (data: any) => {
+          this.items = data;
+        });
+      } else {
+        this.load('');
+      }
+    }
+  }
+
+  restored = (id) => {
+    this.rest.get(`${this.selectedDevice.value}/restore/${id}`).subscribe(() => {
+      this.deletedLoad('');
+    });
   }
 }

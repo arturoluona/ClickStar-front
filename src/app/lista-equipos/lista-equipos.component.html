@@ -1,6 +1,13 @@
 <div class="container">
     <br>
-    <h3 style="text-align: center;"><i class="fas fa-tv p-1"></i>Equipos</h3>
+  <div [ngClass]="{'d-flex justify-content-between align-items-center': user?.role === 'admin'}">
+    <h3 [ngClass]="{'text-center': user?.role !== 'admin'}"><i class="fas fa-tv p-1"></i> &nbsp; Equipos</h3>
+    <div *ngIf="user?.role === 'admin'" (click)="isDeleted = !isDeleted;deletedLoad();">
+      <i *ngIf="!isDeleted" class="fas color-red fa-trash"></i>
+      <i *ngIf="isDeleted" class="fas text-primary fa-redo-alt"></i>
+    </div>
+  </div>
+
 			<ng-select [items]="typeDevices"
 					   bindLabel="name"
 					   placeholder="Selecciona un equipo"
@@ -14,9 +21,9 @@
       <input type="text" class="form-control" [ngModel]="search" (ngModelChange)="load($event)"  aria-label="Example text with button addon" aria-describedby="button-addon1">
     </div>
     <div *ngFor="let data of items" class="container shadow pt-2 pl-2 mb-2 list-color rounded" style="background: white;">
-      
+
         <div class="row">
-    
+
           <div class="col-8 truncate ">
             <p>
               <i class="fas text-muted fa-code-branch mr-2"></i>
@@ -28,13 +35,14 @@
             </p>
           </div>
           <div class="col-4 text-center">
-              <i (click)="redireccion(data._id)" class="fas shadow fa-file-pdf color-red"></i> 
+            <p><i *ngIf="isDeleted" (click)="restored(data?._id)" class="fas text-primary fa-redo-alt"></i></p>
+              <i *ngIf="!isDeleted" (click)="redireccion(data._id)" class="fas shadow fa-file-pdf color-red"></i>
               &nbsp;&nbsp;&nbsp;
-              <i *ngIf="(user?.role === 'admin')" (click)="delete(data?._id)" class="fas color-red fa-trash"></i>
+              <i *ngIf="(user?.role === 'admin') && !isDeleted" (click)="delete(data?._id)" class="fas color-red fa-trash"></i>
               <p class="mt-4 text-date">{{data.createdAt | date:'shortDate'}}</p>
           </div>
         </div>
-      
+
     </div>
 
     <div *ngIf="!(items.length)" class="mt-5 pt-5 text-center">
@@ -42,5 +50,5 @@
         Selecciona un equipo para listar
       </h4>
     </div>
-</div> 
+</div>
 <app-navbar></app-navbar>

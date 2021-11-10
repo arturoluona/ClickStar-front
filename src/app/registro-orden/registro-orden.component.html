@@ -9,7 +9,7 @@
 	</div>
 	<hr class="m-0 p-0">
 	<form [formGroup]="formOrden" (submit)="submit()">
-		<label>Cliente</label>	  
+		<label>Cliente</label>
 		<ng-select #selectProductRef [items]="results$ | async"
 					formControlName="customer"
 					bindLabel="name"
@@ -29,9 +29,9 @@
 			{{item?.name}}<small class="pl-2"><i>{{item?.ci}}</i></small>
 			</ng-template>
 			<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-			
+
 				<div class="p-1">{{item?.name}} &nbsp;&nbsp;&nbsp;<small><i>{{item?.ci}}</i></small></div>
-				
+
 			</ng-template>
 		</ng-select>
 
@@ -60,7 +60,7 @@
 					   [(ngModel)]="selectedDevice"
 					   [ngModelOptions]="{ standalone: true }">
 			</ng-select>
-			
+
 			<ng-select *ngIf="selectedDevice && !id" #selectDeviceRef [items]="device$ | async"
 						formControlName="device"
 						bindLabel="name"
@@ -81,9 +81,9 @@
 				{{item?.model}}<small class="pl-2"><i>{{item?.serial}}</i></small>
 				</ng-template>
 				<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-				
+
 					<div class="p-1">{{item?.model}} &nbsp;&nbsp;&nbsp;<small><i>{{item?.serial}}</i></small></div>
-					
+
 				</ng-template>
 			</ng-select>
 		</div>
@@ -100,33 +100,42 @@
 		</div>
 
 		<div *ngIf="id">
-			<json-editor [options]="options" formControlName="deviceJson"></json-editor>
-			<!-- <div class="card bg-device">
+<!--			<json-editor [options]="options" formControlName="deviceJson"></json-editor>-->
+			<div class="card" (click)="openModalEditDevice()">
 				<div class="card-body">
-				  <p>Equipo</p>
-					{{dataOrden?.device | json}}
+          <div class=" d-flex justify-content-between align-items-center">
+            <div>
+              <p class="m-0 p-0">Equipo</p>
+              <p class="m-0 p-0">{{dataOrden?.typeDevice?.name}}</p>
+            </div>
+            <i class="far fa-eye text-muted"></i>
+          </div>
+
 				</div>
-			</div> -->
-			<p class="mt-2">Historial Estatus</p>
-			<div class="card" style="width: 18rem;">
+			</div>
+			<p class="mt-4">Historial Estatus</p>
+			<div class="card" >
 				<ul class="list-group list-group-flush">
 				  <li *ngFor="let dat of dataOrden?.historic" class="list-group-item">
 					  <div class="row">
-						  <div class="col-6">{{dat?.status}}</div>
+						  <div class="col-6" *ngIf="dat?.status === 'wait'">Espera</div>
+              <div class="col-6" *ngIf="dat?.status === 'process'">Proceso</div>
+              <div class="col-6" *ngIf="dat?.status === 'completed'">Completado</div>
+              <div class="col-6" *ngIf="dat?.status === 'delivered'">Entregado</div>
+              <div class="col-6" *ngIf="dat?.status === 'cancelado'">Cancelado</div>
 						  <div class="col-6">{{dat?.date | date:'mediumDate'}}</div>
-					  </div> 
+					  </div>
 				  </li>
-				  
 				</ul>
 			  </div>
 		</div>
-
 		<div *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')" class="text-center mt-3 col-12">
 			<button type="submit" class="btn btn-dark " [disabled]="formOrden.invalid">Guardar</button>
-		</div>	
+		</div>
 	</form>
-	<button *ngIf="id" type="button" class="btn btn-danger" (click)="redirect()">PDF</button>
+  <div class="w-100 text-center mt-2">
+    <button *ngIf="id" type="button" class="btn btn-danger" (click)="redirect()">PDF</button>
+  </div>
 </div>
-
 
 <app-navbar></app-navbar>

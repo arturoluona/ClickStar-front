@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-    
+
     <div class="list">
       <ul class="list-unstyled components">
         <li *ngIf="(user?.role !== 'tecnico') && (user?.role !== 'user')">
@@ -38,8 +38,11 @@
         <li>
           <a [routerLink]="['/inventario']"><i class="fas fa-luggage-cart p-4"></i>Inventario</a>
         </li>
+        <li *ngIf="user?.role === 'admin'">
+          <a [routerLink]="['/lista-papelera-usuarios']" ><i class="fab fa-accessible-icon p-4"></i>Recuperar usuarios</a>
+        </li>
         <li>
-          <a href="http://localhost:3000/home"><i class="fas fa-chalkboard-teacher p-4"></i>Portal Web</a>
+          <a href="http://localhost:3000/home" target="_blank"><i class="fas fa-chalkboard-teacher p-4"></i>Portal Web</a>
         </li>
         <li *ngIf="user?.role === 'admin'">
           <a class="pb-0" (click)="audit = !audit"><i class="fas fa-file-pdf pb-0 pt-4 pl-4 pr-4"></i>Auditorias</a>
@@ -53,7 +56,7 @@
           <li class="text-1 ml-5 pt-2 pl-4" *ngIf="audit">
             <a class="font-weight-normal" (click)="redirect('auditoriaInv')">Inventario</a>
           </li>
-          
+
         <li>
           <a (click)="logOut()" ><i class="fas fa-sign-out-alt p-4"></i>Salir</a>
         </li>

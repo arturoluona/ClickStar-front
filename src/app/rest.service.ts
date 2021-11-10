@@ -61,12 +61,15 @@ export class RestService {
     }
   };
 
-  parseHeader = () => {
+  parseHeader = (custom = null as any) => {
     const token = this.cookieService.get('session');
     let header = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     };
+    if (custom) {
+      header = custom;
+    }
     if (token) {
       header['Authorization'] = `Bearer ${token}`;
     }
@@ -134,6 +137,7 @@ export class RestService {
             'Si persiste el problema contacta a arturoluna879@gmail.com',
             'error'
           )
+          break;
         case 400:
           Swal.fire(
             'Error',
@@ -157,9 +161,9 @@ export class RestService {
 
   };
 
-  post(path = '', body = {}): Observable<any> {
+  post(path = '', body = {}, headerr = null as any): Observable<any> {
     try {
-      let header = this.parseHeader();
+      const header = this.parseHeader(headerr);
       return this.http.post(`${this.url}/${path}`, body, {headers: header})
         .pipe(
           catchError((e: any) => {

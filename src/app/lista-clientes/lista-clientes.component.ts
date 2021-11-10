@@ -16,18 +16,17 @@ export class ListaClientesComponent implements OnInit {
   constructor(
     private cookieService: CookieService,
     private serviceCliente: ClienteServiceService,
-    private rest: RestService    
+    private rest: RestService
     ) {}
-    
 
   ngOnInit(): void {
     this.user =  JSON.parse(this.cookieService.get('user'));
     this.load(false)
   }
-  
+
   load(a: any) {
     const query = (a) ? `filter=${a}&fields=ci,name,email,phone` : '';
-    this.rest.get(`users/customers?${query}`).subscribe( data => {      
+    this.rest.get(`users/customers?${query}`).subscribe( data => {
       this.items = [];
       data.docs.map(a => {
         this.items.push(a);
@@ -38,7 +37,7 @@ export class ListaClientesComponent implements OnInit {
   OpenModal(data: any){
     this.serviceCliente.openOrder(data)
   }
-  
+
   delete(id) {
     this.rest.alertDelete('users', id).then(() => {
       this.load(false);

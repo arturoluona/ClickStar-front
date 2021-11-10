@@ -7,7 +7,7 @@
       <div class="input-group-prepend">
         <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
       </div>
-      <input type="text"[ngModel]="search" (ngModelChange)="load($event)" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+      <input type="text" [ngModel]="search" (ngModelChange)="load($event)" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
     </div>
 
     <div *ngFor="let data of items" class="container shadow p-2 mb-2 list-color rounded" style="background: white;">
@@ -21,7 +21,6 @@
           <p class="mt-4 text-1"><i class="fas text-muted fa-tag mr-2"></i>{{data?.price}} Cop</p>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -39,7 +38,7 @@
 
               <div class="Container">
                   <div class="from-group">
-                      <label for=""> Producto</label>
+                      <label > Producto</label>
                     <input type="text" class="form-control border-muted"  formControlName="name" style="width: 100%; height: 40px;" value="" placeholder=" Ejem..(Memoria Ram ddr3 laptop)" > <br>
 
                     <label>Stock</label>
@@ -49,7 +48,7 @@
                       (valueChange)="cambioStock($event)"
                       [(value)] = "valueStock"
                       [min]="0"
-                      [max]="(!valorMaximo || (user?.role==='admin')) ? '150' : valorMaximo"
+                      [max]="(!valorMaximo || (user?.role==='admin')) ? 150 : valorMaximo"
                     ></ng-number-picker>
 
                   <label class="mt-4">Precio</label>
@@ -60,13 +59,29 @@
 
                     <label class="mt-4">Observacion:</label>
                     <textarea class='form-control' formControlName="description"></textarea>
+                    <ngx-dropzone  (change)="onSelect($event)" [expandable]="true"
+                                  [multiple]="false"
+                                  class="my-2 border-2 rounded border-gray-300"
+                                  accept="image/jpeg,image/jpg,image/png,image/gif">
+                      <ngx-dropzone-label>
+                        <div>
+                          <img *ngIf="id && item?.storage" height="300" [src]="item?.storage[0]?.small" alt="edit program">
+                          <p *ngIf="!id || !item?.storage">Subir Imagen</p>
+                        </div>
+
+                      </ngx-dropzone-label>
+                      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                                  *ngFor="let f of files" [file]="f"
+                                                  [removable]="true" (removed)="onRemove()">
+                      </ngx-dropzone-image-preview>
+                    </ngx-dropzone>
                   </div>
                 </div>
 
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
-              <button type="submit" class="btn btn-primary" [disabled]="form.invalid" type="submit">Guardar</button>
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid" >Guardar</button>
           </div>
         </div>
       </form>
